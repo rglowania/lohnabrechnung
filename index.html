@@ -332,7 +332,7 @@ input[type=checkbox]{
 
   <!-- ── ARBEITNEHMER ─────────────────────────────────────────── -->
   <div class="card">
-    <div class="card-title">Arbeitnehmer</div>    <div class="row">
+    <div class="card-title">Arbeitnehmer</div>    <div class="row3">
       <div class="field">
         <label><span class="lbl">Vorname</span>
           <input type="text" id="an-vorname" placeholder="Max">
@@ -341,6 +341,15 @@ input[type=checkbox]{
       <div class="field">
         <label><span class="lbl">Nachname</span>
           <input type="text" id="an-nachname" placeholder="Mustermann">
+        </label>
+      </div>
+      <div class="field">
+        <label><span class="lbl">Kirchensteuer</span>
+          <select id="an-kirche">
+            <option value="0">Keine</option>
+            <option value="0.09">9 % (Bayern/BaWü)</option>
+            <option value="0.08">8 % (übrige Länder)</option>
+          </select>
         </label>
       </div>
     </div>
@@ -389,8 +398,11 @@ input[type=checkbox]{
       <div class="field">
         <label><span class="lbl">Krankenversicherung</span>
           <select id="an-kk" onchange="kkGewaehlt()">
+            <optgroup label="── PKV ──────────────────">
+            <option value="PKV">PKV (privat versichert)</option>
+            </optgroup>
             <optgroup label="── GKV ──────────────────">
-            <option value="AOK BW">AOK BW</option>
+            <option value="AOK BW" selected>AOK BW</option>
             <option value="AOK Bayern">AOK Bayern</option>
             <option value="AOK Bremen/Bremerhaven">AOK Bremen/Bremerhaven</option>
             <option value="AOK Hessen">AOK Hessen</option>
@@ -466,9 +478,6 @@ input[type=checkbox]{
             <option value="WMF BKK">WMF BKK</option>
             <option value="ZF BKK">ZF BKK</option>
             </optgroup>
-            <optgroup label="── PKV ──────────────────">
-            <option value="PKV">PKV (privat versichert)</option>
-            </optgroup>
           </select>
         </label>
       </div>
@@ -478,20 +487,22 @@ input[type=checkbox]{
         </label>
         <p class="hint" id="kvz-hint">Kassenindividuell · wird automatisch gesetzt</p>
       </div>
-      <div class="field" id="pkv-wrap" style="display:none;">
-        <label><span class="lbl">AG-Zuschuss PKV (€/Monat)</span>
-          <input type="text" id="an-pkv-zuschuss" value="0,00" oninput="fmtInput(this);berechne()">
-        </label>
-        <p class="hint">Max. die Hälfte des tatsächlichen PKV-Beitrags · wird als Nettobetrag abgezogen</p>
+      <div id="pkv-wrap" style="display:none;grid-column:span 2;">
+        <div class="row">
+          <div class="field">
+            <label><span class="lbl">PKV-Beitrag AN (€/Monat)</span>
+              <input type="text" id="an-pkv-beitrag" value="0,00" oninput="fmtInput(this);berechne()">
+            </label>
+            <p class="hint">Eigenanteil nach AG-Zuschuss · mindert das zvE (§ 10 Abs. 1 Nr. 3 EStG)</p>
+          </div>
+          <div class="field">
+            <label><span class="lbl">AG-Zuschuss PKV (€/Monat)</span>
+              <input type="text" id="an-pkv-zuschuss" value="0,00" oninput="fmtInput(this);berechne()">
+            </label>
+            <p class="hint">Max. die Hälfte des tatsächlichen PKV-Gesamtbeitrags · Nettolohnabzug</p>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label><span class="lbl">Kirchensteuer</span>
-          <select id="an-kirche">
-            <option value="0">Keine</option>
-            <option value="0.09">9 % (Bayern/BaWü)</option>
-            <option value="0.08">8 % (übrige Länder)</option>
-          </select>
-        </label>
       </div>
     </div>
     <div class="row3">
@@ -912,8 +923,13 @@ function berechne(){
 
   var svGes = sv.rv + sv.av + sv.kv + sv.pv;
 
+  // PKV-Beitrag AN: steuerlich abzugsfähig als Vorsorgeaufwand (§ 10 Abs. 1 Nr. 3 EStG)
+  // Basisbeitrag (Basisleistungen = GKV-äquivalent) mindert das zvE bis zur Höchstgrenze.
+  // Vereinfachung: gesamter AN-PKV-Beitrag wird als Vorsorgeaufwand behandelt.
+  var pkvBeitragAN = isPKV ? parseDe(document.getElementById('an-pkv-beitrag').value) : 0;
+
   var wkPausch = jw.wkPausch;
-  var zvE_mon = Math.max(0, bruttoGes - svGes - wkPausch);
+  var zvE_mon = Math.max(0, bruttoGes - svGes - wkPausch - pkvBeitragAN);
   var zvE_jahr = zvE_mon * 12;
 
   var steuern = { lst:0, solz:0, kist:0 };
@@ -945,6 +961,7 @@ function berechne(){
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
     row('Brutto gesamt', fmtEur(bruttoGes)+' €') +
     row('SV-Beiträge AN', '− '+fmtEur(svGes)+' €') +
+    (isPKV && pkvBeitragAN > 0 ? row('PKV-Beitrag AN (Vorsorgeaufwand)', '− '+fmtEur(pkvBeitragAN)+' €') : '') +
     row('Lohnsteuer', '− '+fmtEur(steuern.lst)+' €') +
     row('Solidaritätszuschlag', '− '+fmtEur(steuern.solz)+' €') +
     (steuern.kist > 0 ? row('Kirchensteuer', '− '+fmtEur(steuern.kist)+' €') : '') +
@@ -961,7 +978,7 @@ function berechne(){
   return {
     brutto, zulagenGes, zulagenItems, bruttoGes,
     sv, svGes, steuern, steuernGes,
-    abzuegeItems, abzuegeGes, pkvZuschuss, isPKV, netto,
+    abzuegeItems, abzuegeGes, pkvZuschuss, pkvBeitragAN, isPKV, netto,
     kvz, hatKinder, stklasse, jahr, jw, SV
   };
 }
@@ -1067,6 +1084,7 @@ function generatePreview(){
       html += tdRow('Arbeitslosenversicherung (1,30 %)', '− '+fmtEur(c.sv.av)+' €');
     }
     html += tdRow('Kranken-/Pflegeversicherung', 'PKV (privat versichert)');
+    if(c.pkvBeitragAN > 0) html += tdRow('PKV-Beitrag AN (Vorsorgeaufwand § 10 Abs. 1 Nr. 3 EStG)', '− '+fmtEur(c.pkvBeitragAN)+' €');
     if(c.svGes > 0) html += '<tr class="total-row"><td>SV-Abzüge gesamt</td><td>− '+fmtEur(c.svGes)+' €</td></tr>';
   } else if(art === 'aktivrente'){
     html += '<tr class="section-header"><td colspan="2">Sozialversicherung</td></tr>';
