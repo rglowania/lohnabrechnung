@@ -4,35 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lohnabrechnung</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230c1410'/%3E%3Ctext y='.9em' font-size='82' font-family='serif' fill='%235d9e7a' x='10'%3Eg%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
 /* ═══════════════════════════════════════════════════════════════
    G-DESIGN — Template v1.1
    ═══════════════════════════════════════════════════════════════ */
-
-/* ── Tokens ─────────────────────────────────────────────────── */
 :root,[data-theme="dark"]{
-  --bg:        #0c1410;
-  --surface:   #13201a;
-  --surface2:  #192b22;
-  --border:    #213328;
-  --accent:    #5d9e7a;
-  --accent-lt: #89c4a2;
-  --accent-dim:rgba(93,158,122,0.13);
-  --text:      #ddeee5;
-  --text-muted:#6e9480;
+  --bg:#0c1410;--surface:#13201a;--surface2:#192b22;--border:#213328;
+  --accent:#5d9e7a;--accent-lt:#89c4a2;--accent-dim:rgba(93,158,122,0.13);
+  --text:#ddeee5;--text-muted:#6e9480;
 }
 [data-theme="light"]{
-  --bg:        #f0f7f3;
-  --surface:   #ffffff;
-  --surface2:  #e6f2eb;
-  --border:    #bdd8c8;
-  --accent:    #2e7a50;
-  --accent-lt: #1e5c3a;
-  --accent-dim:rgba(46,122,80,0.10);
-  --text:      #0f1f16;
-  --text-muted:#4d7a5e;
+  --bg:#f0f7f3;--surface:#ffffff;--surface2:#e6f2eb;--border:#bdd8c8;
+  --accent:#2e7a50;--accent-lt:#1e5c3a;--accent-dim:rgba(46,122,80,0.10);
+  --text:#0f1f16;--text-muted:#4d7a5e;
 }
 @media(prefers-color-scheme:light){
   :root:not([data-theme]){
@@ -41,1220 +27,870 @@
     --text:#0f1f16;--text-muted:#4d7a5e;
   }
 }
-
-/* ── Reset ──────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;}
-
-/* ── Body & Hintergrund-Grid ────────────────────────────────── */
-body{
-  background:var(--bg);color:var(--text);
-  font-family:'IBM Plex Sans',sans-serif;font-weight:300;
-  min-height:100vh;padding:40px 20px 80px;
-  transition:background .25s,color .25s;
-}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(rgba(93,158,122,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(93,158,122,0.04) 1px,transparent 1px);
-  background-size:40px 40px;
-}
-
-/* ── Layout ─────────────────────────────────────────────────── */
-.container{max-width:960px;margin:0 auto;position:relative;z-index:1;}
-
-/* ── Theme-Toggle ───────────────────────────────────────────── */
-.theme-toggle{
-  position:fixed;top:18px;right:20px;display:flex;gap:3px;
-  z-index:1000;background:var(--surface);border:1px solid var(--border);padding:4px;
-}
-.theme-btn{
-  width:28px;height:28px;background:transparent;border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--text-muted);transition:all .2s;padding:0;
-}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-weight:300;min-height:100vh;padding:40px 20px 80px;transition:background .25s,color .25s;font-feature-settings:"ss01";}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(93,158,122,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(93,158,122,0.04) 1px,transparent 1px);background-size:40px 40px;}
+.container{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.theme-toggle{position:fixed;top:18px;right:20px;display:flex;gap:3px;z-index:1000;background:var(--surface);border:1px solid var(--border);padding:4px;}
+.theme-btn{width:28px;height:28px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .2s;padding:0;}
 .theme-btn:hover{color:var(--accent);}
 .theme-btn.active{color:var(--accent);background:var(--accent-dim);}
 .theme-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-
-/* ── Typografie ─────────────────────────────────────────────── */
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(26px,5vw,44px);font-weight:600;
-  line-height:1.15;color:var(--text);margin-bottom:10px;
-}
+h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,44px);font-weight:600;line-height:1.15;color:var(--text);margin-bottom:10px;}
 h1 span{color:var(--accent);}
-h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(18px,3vw,26px);font-weight:600;
-  color:var(--text);margin-bottom:8px;
-}
-.subtitle{
-  font-size:12px;color:var(--text-muted);
-  font-family:'IBM Plex Mono',monospace;letter-spacing:0.5px;
-}
-.badge{
-  display:inline-block;font-family:'IBM Plex Mono',monospace;
-  font-size:10px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--accent);border:1px solid var(--accent-dim);padding:4px 14px;margin-bottom:18px;
-}
-.card-title{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px;
-}
-.hint{font-size:10px;color:var(--text-muted);margin-top:5px;font-family:'IBM Plex Mono',monospace;line-height:1.5;}
-.hint b{color:var(--accent-lt);}
-.note{font-size:10px;color:var(--text-muted);margin-top:14px;line-height:1.7;font-family:'IBM Plex Mono',monospace;}
+.card-title{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.hint{font-size:10px;color:var(--text-muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;line-height:1.5;}
+.disclaimer{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);line-height:1.7;opacity:.7;margin-top:32px;}
+footer{text-align:center;padding:32px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--text-muted);opacity:.6;}
+/* ═══ ENDE G-DESIGN ═══════════════════════════════════════════ */
 
-/* ── Disclaimer ─────────────────────────────────────────────── */
-.disclaimer{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  color:var(--text-muted);line-height:1.7;opacity:.7;
-  margin-top:32px;
-}
-
-/* ── Footer ─────────────────────────────────────────────── */
-footer{
-  text-align:center;padding:32px 0 0;
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  letter-spacing:1px;color:var(--text-muted);opacity:.6;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   ENDE G-DESIGN — App-spezifisches CSS
-   ═══════════════════════════════════════════════════════════════ */
-
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-left:3px solid var(--accent);
-  padding:28px 32px;
-  margin-bottom:20px;
-}
-
-label span.lbl{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-muted);display:block;margin-bottom:6px;
-}
-input[type=text],input[type=number],input[type=month],select,textarea{
-  width:100%;background:var(--surface2);border:1px solid var(--border);
-  color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:14px;
-  padding:10px 14px;outline:none;
-  transition:border-color .2s;
-}
-input[type=text]:focus,input[type=number]:focus,input[type=month]:focus,select:focus,textarea:focus{
-  border-color:var(--accent);
-}
-input[type=checkbox]{
-  accent-color:var(--accent);width:15px;height:15px;cursor:pointer;
-}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
-@media(max-width:620px){.row,.row3{grid-template-columns:1fr;}}
-.field{margin-bottom:16px;}
-
-.btn-primary{
-  width:100%;padding:14px;background:var(--accent);color:#fff;
-  border:none;font-family:'IBM Plex Mono',monospace;font-size:11px;
-  letter-spacing:3px;text-transform:uppercase;cursor:pointer;
-  transition:opacity .2s;
-}
+.card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:24px 28px;margin-bottom:16px;}
+.lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:5px;}
+input[type=text],input[type=month],select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:12px;padding:7px 9px;outline:none;transition:border-color .2s;}
+input:focus,select:focus{border-color:var(--accent);}
+input[readonly]{opacity:.7;cursor:default;}
+input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;margin-right:5px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+.g5{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px;}
+.g6{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:10px;}
+@media(max-width:680px){.g2,.g3,.g4,.g5,.g6{grid-template-columns:1fr 1fr;}}
+.field{margin-bottom:0;}
+.mb{margin-bottom:12px;}
+.btn-primary{padding:12px 24px;background:var(--accent);color:#fff;border:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:opacity .2s;}
 .btn-primary:hover{opacity:.85;}
-.btn-secondary{
-  padding:10px 20px;background:transparent;color:var(--accent);
-  border:1px solid var(--accent);font-family:'IBM Plex Mono',monospace;
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-  transition:all .2s;
-}
-.btn-secondary:hover{background:var(--accent-dim);}
+.btn-sec{padding:8px 16px;background:transparent;color:var(--accent);border:1px solid var(--accent);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-sec:hover{background:var(--accent-dim);}
+.btn-sm{padding:4px 9px;background:transparent;color:var(--accent);border:1px solid var(--accent);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-sm:hover{background:var(--accent-dim);}
+.btn-del{padding:5px 9px;background:transparent;color:#c0392b;border:1px solid #c0392b;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;line-height:1;}
+.btn-del:hover{background:rgba(192,57,43,0.1);}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.quick-btns{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
 
-/* Abrechnung Vorschau */
+/* Lohnarten-Tabelle */
+.la-tbl{width:100%;border-collapse:collapse;font-size:11px;}
+.la-tbl th{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);padding:5px 5px;border-bottom:1px solid var(--accent-dim);text-align:left;white-space:nowrap;}
+.la-tbl td{padding:3px 3px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.la-tbl td input,.la-tbl td select{padding:4px 6px;font-size:11px;}
+.la-tbl .r input{text-align:right;}
+.la-sum-row td{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);padding:8px 5px;border-top:2px solid var(--accent);}
+
+/* Druckvorschau */
 #preview-wrap{display:none;margin-top:20px;}
-.preview-doc{
-  background:var(--surface);border:1px solid var(--border);
-  padding:40px 48px;font-family:'IBM Plex Sans',sans-serif;
-  font-size:14px;line-height:1.6;color:var(--text);
-}
-.preview-doc .doc-header{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:36px;padding-bottom:20px;border-bottom:2px solid var(--accent);
-}
-.preview-doc .doc-logo{
-  font-family:'Playfair Display',serif;font-size:22px;font-weight:600;
-  color:var(--accent);
-}
-.preview-doc .doc-meta{
-  font-family:'IBM Plex Mono',monospace;font-size:11px;
-  color:var(--text-muted);text-align:right;line-height:1.8;
-}
-.preview-doc h2{
-  font-family:'Playfair Display',serif;font-size:20px;
-  color:var(--text);margin-bottom:4px;
-}
-.preview-doc .doc-period{
-  font-family:'IBM Plex Mono',monospace;font-size:11px;
-  color:var(--text-muted);margin-bottom:28px;letter-spacing:1px;
-}
-.preview-doc table{width:100%;border-collapse:collapse;margin-bottom:8px;}
-.preview-doc table td{
-  padding:8px 0;border-bottom:1px solid var(--border);
-  font-family:'IBM Plex Mono',monospace;font-size:13px;
-}
-.preview-doc table td:last-child{text-align:right;}
-.preview-doc table tr.section-header td{
-  font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  color:var(--accent);padding-top:20px;padding-bottom:6px;
-  border-bottom:1px solid var(--accent-dim);font-weight:500;
-}
-.preview-doc table tr.total-row td{
-  font-weight:500;color:var(--text);border-bottom:2px solid var(--accent);
-  padding-top:12px;font-size:14px;
-}
-.preview-doc table tr.net-row td{
-  font-family:'Playfair Display',serif;font-size:18px;
-  color:var(--accent);border-bottom:none;padding-top:16px;font-weight:600;
-}
-.preview-doc .doc-footer-note{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  color:var(--text-muted);margin-top:32px;padding-top:16px;
-  border-top:1px solid var(--border);line-height:1.8;
-}
-.preview-doc .signatures{
-  display:grid;grid-template-columns:1fr 1fr;gap:40px;
-  margin-top:40px;
-}
-.preview-doc .sig-line{
-  border-top:1px solid var(--text-muted);padding-top:8px;
-  font-family:'IBM Plex Mono',monospace;font-size:10px;
-  color:var(--text-muted);letter-spacing:1px;
-}
-.toolbar{
-  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;
-}
+.dv{background:#fff;color:#111;font-family:'Courier New',monospace;font-size:8.5pt;padding:12mm 10mm;border:1px solid var(--border);line-height:1.3;}
+.dv *{box-sizing:border-box;}
+.dv-top{display:flex;justify-content:space-between;margin-bottom:3px;font-size:9pt;}
+.dv-top .left{font-weight:700;}
+.dv-top .right{text-align:right;font-size:8pt;}
+.dv-kopf{border:1px solid #666;font-size:7.5pt;margin-bottom:2px;}
+.dv-kopf-row{display:flex;}
+.dv-kopf-row>div{border-right:1px solid #666;padding:2px 4px;flex:1;}
+.dv-kopf-row>div:last-child{border-right:none;}
+.dv-kopf-row .kl{font-size:6.5pt;color:#444;display:block;margin-bottom:1px;}
+.dv-h{font-size:8pt;font-weight:700;border-bottom:1px solid #333;padding-bottom:1px;margin:5px 0 2px;}
+.dv-tbl{width:100%;border-collapse:collapse;font-size:7.5pt;margin-bottom:3px;}
+.dv-tbl th{border:1px solid #888;padding:2px 3px;background:#e8e8e8;font-weight:700;text-align:center;font-size:6.5pt;white-space:nowrap;}
+.dv-tbl td{border:1px solid #ccc;padding:2px 3px;}
+.dv-tbl td.r{text-align:right;}
+.dv-tbl td.c{text-align:center;}
+.dv-tbl tr.tot td{border-top:1.5px solid #555;font-weight:700;}
+.dv-bot{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:5px;}
+.dv-verdi{font-size:7.5pt;}
+.dv-verdi table{width:100%;border-collapse:collapse;}
+.dv-verdi td{padding:1px 2px;border-bottom:1px dotted #ddd;font-size:7.5pt;}
+.dv-verdi td.r{text-align:right;}
+.dv-verdi td.b{font-weight:700;}
+.dv-netto{font-size:7.5pt;}
+.dv-netto table{width:100%;border-collapse:collapse;}
+.dv-netto td{padding:1px 2px;border-bottom:1px dotted #ddd;font-size:7.5pt;}
+.dv-netto td.r{text-align:right;}
+.dv-foot{border-top:1px solid #666;margin-top:6px;padding-top:3px;display:flex;justify-content:space-between;font-size:7.5pt;}
+.dv-foot .ausz{font-size:11pt;font-weight:700;text-align:right;}
+.dv-hinweis{background:#f5f5f5;border:1px solid #ccc;padding:3px 6px;font-size:7.5pt;margin-bottom:4px;}
 
-/* Abzüge-Liste */
-.abzug-row{
-  display:grid;grid-template-columns:1fr 1fr auto;gap:10px;
-  align-items:end;margin-bottom:10px;
-}
-.abzug-row .btn-del{
-  background:transparent;border:1px solid var(--border);color:var(--text-muted);
-  font-size:16px;padding:9px 13px;cursor:pointer;
-  font-family:'IBM Plex Mono',monospace;transition:all .2s;
-}
-.abzug-row .btn-del:hover{border-color:var(--accent);color:var(--accent);}
-.add-btn{
-  background:transparent;border:1px dashed var(--border);
-  color:var(--text-muted);font-family:'IBM Plex Mono',monospace;font-size:10px;
-  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-  padding:10px;width:100%;transition:all .2s;margin-top:4px;
-}
-.add-btn:hover{border-color:var(--accent);color:var(--accent);}
-
-/* Zulagen-Liste */
-.zulage-row{
-  display:grid;grid-template-columns:1fr 1fr auto;gap:10px;
-  align-items:end;margin-bottom:10px;
+@media print{
+  body{background:#fff!important;padding:0!important;}
+  body::before{display:none!important;}
+  .container{max-width:100%!important;}
+  .no-print{display:none!important;}
+  #preview-wrap{display:block!important;}
+  .dv{border:none;padding:8mm 6mm;}
+  .theme-toggle,.disclaimer,footer{display:none!important;}
 }
 </style>
 </head>
 <body>
 
-<!-- ── Theme-Toggle ──────────────────────────────────────────── -->
 <div class="theme-toggle">
-  <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')" title="Dunkel">
-    <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  </button>
-  <button class="theme-btn" id="btn-system" onclick="setTheme('system')" title="System">
-    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-  </button>
-  <button class="theme-btn" id="btn-light" onclick="setTheme('light')" title="Hell">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-  </button>
+  <button class="theme-btn" id="btn-dark" onclick="setTheme('dark')" title="Dunkel"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+  <button class="theme-btn" id="btn-system" onclick="setTheme('system')" title="System"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></button>
+  <button class="theme-btn" id="btn-light" onclick="setTheme('light')" title="Hell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
 </div>
 
 <div class="container">
+<header style="text-align:center;margin-bottom:28px;" class="no-print">
+  <h1><span>Lohn</span>abrechnung</h1>
+</header>
 
-  <!-- TITEL -->
-  <header style="text-align:center;margin-bottom:40px;">
-    <h1><span>Lohn</span>abrechnung</h1>
-  </header>
+<!-- STAMMDATEN TOOLBAR -->
+<div class="no-print toolbar">
+  <button class="btn-sec" onclick="stammdatenSpeichern()">&#128190; Stammdaten speichern</button>
+  <button class="btn-sec" onclick="document.getElementById('sd-file').click()">&#128229; Importieren</button>
+  <input type="file" id="sd-file" accept=".json" style="display:none" onchange="stammdatenLaden(event)">
+</div>
 
-  <!-- ── ARBEITGEBER ──────────────────────────────────────────── -->
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
-      <div class="card-title" style="margin-bottom:0;">Stammdaten</div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn-secondary" onclick="stammdatenSpeichern()" style="padding:7px 14px;font-size:9px;">&#128190; Als Datei speichern</button>
-        <button class="btn-secondary" onclick="stammdatenImportieren()" style="padding:7px 14px;font-size:9px;">&#128229; Importieren</button>
-        <input type="file" id="stammdaten-import-file" accept=".json" style="display:none;" onchange="stammdatenLaden(event)">
-      </div>
-    </div>
-    <div class="card-title" style="margin-bottom:14px;margin-top:4px;">Arbeitgeber</div>
-    <div class="row">
-      <div class="field">
-        <label><span class="lbl">Unternehmensname</span>
-          <input type="text" id="ag-name" placeholder="Musterfirma GmbH">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Abrechnungsmonat</span>
-          <input type="month" id="monat" value="" min="2025-01" max="2026-12">
-        </label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="field">
-        <label><span class="lbl">Straße & Hausnummer</span>
-          <input type="text" id="ag-strasse" placeholder="Musterstraße 1">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">PLZ & Ort</span>
-          <input type="text" id="ag-ort" placeholder="12345 Musterstadt">
-        </label>
-      </div>
-    </div>
-    <div class="row3">
-      <div class="field">
-        <label><span class="lbl">Steuernummer AG</span>
-          <input type="text" id="ag-steuernr" placeholder="12/345/67890">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Betriebsnummer</span>
-          <input type="text" id="ag-betriebsnr" placeholder="12345678">
-        </label>
-      </div>
-    </div>
+<!-- ══ ARBEITGEBER ══════════════════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Arbeitgeber</div>
+  <div class="g4 mb">
+    <div class="field"><label><span class="lbl">Unternehmensname</span><input type="text" id="ag-name" placeholder="Meier & Kröhnke PartG mbB"></label></div>
+    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="ag-strasse" placeholder="Semmelweisstraße 19"></label></div>
+    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="ag-ort" placeholder="79576 Weil am Rhein"></label></div>
+    <div class="field"><label><span class="lbl">Abrechnungsmonat</span><input type="month" id="monat" min="2025-01" max="2026-12" onchange="monatGeaendert()"></label></div>
+  </div>
+  <div class="g4">
+    <div class="field"><label><span class="lbl">Steuernummer AG</span><input type="text" id="ag-steuernr" placeholder="12/345/67890"></label></div>
+    <div class="field"><label><span class="lbl">Betriebsnummer</span><input type="text" id="ag-betriebsnr" placeholder="12345678"></label></div>
+    <div class="field"><label><span class="lbl">IBAN AG (Überweisung von)</span><input type="text" id="ag-iban" placeholder="DE12..."></label></div>
+    <div class="field"><label><span class="lbl">Blatt-Nr.</span><input type="text" id="ag-blatt" value="1"></label></div>
+  </div>
+</div>
+
+<!-- ══ ARBEITNEHMER ═════════════════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Arbeitnehmer · Stammdaten</div>
+
+  <!-- Zeile 1 -->
+  <div class="g4 mb">
+    <div class="field"><label><span class="lbl">Vorname</span><input type="text" id="an-vname" placeholder="Max"></label></div>
+    <div class="field"><label><span class="lbl">Nachname</span><input type="text" id="an-nname" placeholder="Mustermann"></label></div>
+    <div class="field"><label><span class="lbl">Kirchensteuer</span>
+      <select id="an-kirche">
+        <option value="0">Keine</option>
+        <option value="0.09">9 % (BW/Bayern)</option>
+        <option value="0.08">8 % (Übrige)</option>
+      </select></label></div>
+    <div class="field"><label><span class="lbl">Personal-Nr.</span><input type="text" id="an-persnr" placeholder="00036"></label></div>
   </div>
 
-  <!-- ── ARBEITNEHMER ─────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-title">Arbeitnehmer</div>    <div class="row3">
-      <div class="field">
-        <label><span class="lbl">Vorname</span>
-          <input type="text" id="an-vorname" placeholder="Max">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Nachname</span>
-          <input type="text" id="an-nachname" placeholder="Mustermann">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Kirchensteuer</span>
-          <select id="an-kirche">
-            <option value="0">Keine</option>
-            <option value="0.09">9 % (Bayern/BaWü)</option>
-            <option value="0.08">8 % (übrige Länder)</option>
-          </select>
-        </label>
-      </div>
-    </div>
-    <div class="row3">
-      <div class="field">
-        <label><span class="lbl">Straße & Hausnummer</span>
-          <input type="text" id="an-strasse" placeholder="Beispielweg 5">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">PLZ & Ort</span>
-          <input type="text" id="an-ort" placeholder="54321 Beispielort">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Geburtsdatum</span>
-          <input type="text" id="an-geburtstag" placeholder="01.01.1980">
-        </label>
-      </div>
-    </div>
-    <div class="row3">
-      <div class="field">
-        <label><span class="lbl">Steuerklasse</span>
-          <select id="an-stklasse">
-            <option value="I">I</option>
-            <option value="II">II</option>
-            <option value="III">III</option>
-            <option value="IV">IV</option>
-            <option value="V">V</option>
-            <option value="VI">VI</option>
-          </select>
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Steuer-ID</span>
-          <input type="text" id="an-steuerid" placeholder="12 345 678 901">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Sozialversicherungsnr.</span>
-          <input type="text" id="an-svnr" placeholder="12 345678 A 001">
-        </label>
-      </div>
-    </div>
-    <div class="row3">
-      <div class="field">
-        <label><span class="lbl">Krankenversicherung</span>
-          <select id="an-kk" onchange="kkGewaehlt()">
-            <optgroup label="── PKV ──────────────────">
-            <option value="PKV">PKV (privat versichert)</option>
-            </optgroup>
-            <optgroup label="── GKV ──────────────────">
-            <option value="AOK BW" selected>AOK BW</option>
-            <option value="AOK Bayern">AOK Bayern</option>
-            <option value="AOK Bremen/Bremerhaven">AOK Bremen/Bremerhaven</option>
-            <option value="AOK Hessen">AOK Hessen</option>
-            <option value="AOK Niedersachsen">AOK Niedersachsen</option>
-            <option value="AOK Nordost">AOK Nordost</option>
-            <option value="AOK NordWest">AOK NordWest</option>
-            <option value="AOK PLUS">AOK PLUS</option>
-            <option value="AOK RLP/Saarland">AOK RLP/Saarland</option>
-            <option value="AOK Rheinland/HH">AOK Rheinland/HH</option>
-            <option value="AOK Sachsen-Anhalt">AOK Sachsen-Anhalt</option>
-            <option value="Audi BKK">Audi BKK</option>
-            <option value="BARMER">BARMER</option>
-            <option value="Bertelsmann BKK">Bertelsmann BKK</option>
-            <option value="BIG direkt gesund">BIG direkt gesund</option>
-            <option value="BKK 24">BKK 24</option>
-            <option value="BKK B. Braun Aesculap">BKK B. Braun Aesculap</option>
-            <option value="BKK Deutsche Bank AG">BKK Deutsche Bank AG</option>
-            <option value="BKK Dürkopp Adler">BKK Dürkopp Adler</option>
-            <option value="BKK EWE">BKK EWE</option>
-            <option value="BKK exklusiv">BKK exklusiv</option>
-            <option value="BKK Faber-Castell & Partner">BKK Faber-Castell &amp; Partner</option>
-            <option value="BKK firmus">BKK firmus</option>
-            <option value="BKK Freudenberg">BKK Freudenberg</option>
-            <option value="BKK GILDEMEISTER SEIDENSTICKER">BKK GILDEMEISTER SEIDENSTICKER</option>
-            <option value="BKK Groz-Beckert">BKK Groz-Beckert</option>
-            <option value="BKK Herkules">BKK Herkules</option>
-            <option value="BKK HMR">BKK HMR</option>
-            <option value="BKK Linde">BKK Linde</option>
-            <option value="BKK melitta hmr">BKK melitta hmr</option>
-            <option value="BKK mkk">BKK mkk</option>
-            <option value="BKK PFAFF">BKK PFAFF</option>
-            <option value="BKK Pfalz">BKK Pfalz</option>
-            <option value="BKK ProVita">BKK ProVita</option>
-            <option value="BKK Public">BKK Public</option>
-            <option value="BKK SBH">BKK SBH</option>
-            <option value="BKK Technoform">BKK Technoform</option>
-            <option value="BKK VBU">BKK VBU</option>
-            <option value="BKK VDN">BKK VDN</option>
-            <option value="BKK Verbundplus">BKK Verbundplus</option>
-            <option value="BKK Wirtschaft & Finanzen">BKK Wirtschaft &amp; Finanzen</option>
-            <option value="BKK ZF & Partner">BKK ZF &amp; Partner</option>
-            <option value="BOSCH BKK">BOSCH BKK</option>
-            <option value="Continentale BKK">Continentale BKK</option>
-            <option value="DAK-Gesundheit">DAK-Gesundheit</option>
-            <option value="Debeka BKK">Debeka BKK</option>
-            <option value="energie-BKK">energie-BKK</option>
-            <option value="envivas Krankenkasse">envivas Krankenkasse</option>
-            <option value="Ernst & Young BKK">Ernst &amp; Young BKK</option>
-            <option value="hkk">hkk</option>
-            <option value="HEK">HEK</option>
-            <option value="IKK BB/Berlin">IKK BB/Berlin</option>
-            <option value="IKK classic">IKK classic</option>
-            <option value="IKK gesund plus">IKK gesund plus</option>
-            <option value="IKK Südwest">IKK Südwest</option>
-            <option value="KKH">KKH</option>
-            <option value="Knappschaft">Knappschaft</option>
-            <option value="Koenig & Bauer BKK">Koenig &amp; Bauer BKK</option>
-            <option value="Krones BKK">Krones BKK</option>
-            <option value="Landwirtschaftliche KK">Landwirtschaftliche KK</option>
-            <option value="Metzinger BKK">Metzinger BKK</option>
-            <option value="mhplus BKK">mhplus BKK</option>
-            <option value="Novitas BKK">Novitas BKK</option>
-            <option value="Pronova BKK">Pronova BKK</option>
-            <option value="R+V BKK">R+V BKK</option>
-            <option value="Salus BKK">Salus BKK</option>
-            <option value="SBK">SBK</option>
-            <option value="SECURVITA">SECURVITA</option>
-            <option value="SKD BKK">SKD BKK</option>
-            <option value="TK">TK</option>
-            <option value="TUI BKK">TUI BKK</option>
-            <option value="VIACTIV">VIACTIV</option>
-            <option value="vivida bkk">vivida bkk</option>
-            <option value="WMF BKK">WMF BKK</option>
-            <option value="ZF BKK">ZF BKK</option>
-            </optgroup>
-          </select>
-        </label>
-      </div>
-      <div class="field" id="kvz-wrap">
-        <label><span class="lbl">KV-Zusatzbeitrag AN (%)</span>
-          <input type="text" id="an-kvz" value="1,70" oninput="fmtInput(this);berechne()">
-        </label>
-        <p class="hint" id="kvz-hint">Kassenindividuell · wird automatisch gesetzt</p>
-      </div>
-      <div id="pkv-wrap" style="display:none;grid-column:span 2;">
-        <div class="row">
-          <div class="field">
-            <label><span class="lbl">PKV-Beitrag AN (€/Monat)</span>
-              <input type="text" id="an-pkv-beitrag" value="0,00" oninput="fmtInput(this);berechne()">
-            </label>
-            <p class="hint">Eigenanteil nach AG-Zuschuss · mindert das zvE (§ 10 Abs. 1 Nr. 3 EStG)</p>
-          </div>
-          <div class="field">
-            <label><span class="lbl">AG-Zuschuss PKV (€/Monat)</span>
-              <input type="text" id="an-pkv-zuschuss" value="0,00" oninput="fmtInput(this);berechne()">
-            </label>
-            <p class="hint">Max. die Hälfte des tatsächlichen PKV-Gesamtbeitrags · Nettolohnabzug</p>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <div class="row3">
-      <div class="field" id="pv-kinder-wrap">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="an-pv-kinder" onchange="berechne()">
-          <span class="lbl" style="margin-bottom:0">Kinder (PV-Beitrag)</span>
-        </label>
-        <p class="hint">Ohne Kinder: +0,60 % PV-Zuschlag (AN)</p>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Beschäftigungsart</span>
-          <select id="an-art">
-            <option value="vz">Vollzeit (sv-pflichtig)</option>
-            <option value="tz">Teilzeit (sv-pflichtig)</option>
-            <option value="mini">Minijob (§ 8 SGB IV)</option>
-            <option value="ggf">Gesellschafter-Geschäftsführer</option>
-            <option value="aktivrente">Aktiv-Rente (§ 3 Nr. 21 EStG)</option>
-          </select>
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Personalname / Kürzel</span>
-          <input type="text" id="an-kuerzel" placeholder="MMU">
-        </label>
-      </div>
-    </div>
-    <div class="field">
-      <label><span class="lbl">IBAN (Auszahlungskonto)</span>
-        <input type="text" id="ag-iban" placeholder="DE12 3456 7890 1234 5678 90" style="max-width:420px;">
+  <!-- Zeile 2 -->
+  <div class="g4 mb">
+    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="an-str" placeholder="Musterweg 1"></label></div>
+    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="an-ort" placeholder="79576 Weil am Rhein"></label></div>
+    <div class="field"><label><span class="lbl">Geburtsdatum</span><input type="text" id="an-geb" placeholder="01.01.1985"></label></div>
+    <div class="field"><label><span class="lbl">Eintritt</span><input type="text" id="an-eintritt" placeholder="01.10.2022"></label></div>
+  </div>
+
+  <!-- Zeile 3: Steuer -->
+  <div class="g5 mb">
+    <div class="field"><label><span class="lbl">Steuerklasse</span>
+      <select id="an-stklasse">
+        <option value="1">I</option><option value="2">II</option><option value="3">III</option>
+        <option value="4">IV</option><option value="5">V</option><option value="6">VI</option>
+      </select></label></div>
+    <div class="field"><label><span class="lbl">Faktor (StKl IV)</span><input type="text" id="an-faktor" placeholder="—"></label></div>
+    <div class="field"><label><span class="lbl">Steuer-ID</span><input type="text" id="an-steuerid" placeholder="00 000 000 0"></label></div>
+    <div class="field"><label><span class="lbl">Ki.Frbtr. jährl. (€)</span><input type="text" id="an-kifj" placeholder="0,00" oninput="fmtIn(this)"></label></div>
+    <div class="field"><label><span class="lbl">Ki.Frbtr. mtl. (€)</span><input type="text" id="an-kifm" placeholder="0,00" oninput="fmtIn(this)"></label></div>
+  </div>
+
+  <!-- Zeile 4: SV -->
+  <div class="g5 mb">
+    <div class="field"><label><span class="lbl">SV-Nummer</span><input type="text" id="an-svnr" placeholder="12 345678 A 001"></label></div>
+    <div class="field"><label><span class="lbl">Krankenkasse</span>
+      <select id="an-kk" onchange="kkGewaehlt()">
+        <optgroup label="── PKV ──">
+          <option value="PKV">PKV (privat)</option>
+        </optgroup>
+        <optgroup label="── GKV ──">
+          <option value="AOK BW" selected>AOK BW</option>
+          <option value="AOK Bayern">AOK Bayern</option>
+          <option value="AOK Bremen/Bremerhaven">AOK Bremen/Bremerhaven</option>
+          <option value="AOK Hessen">AOK Hessen</option>
+          <option value="AOK Niedersachsen">AOK Niedersachsen</option>
+          <option value="AOK Nordost">AOK Nordost</option>
+          <option value="AOK NordWest">AOK NordWest</option>
+          <option value="AOK PLUS">AOK PLUS</option>
+          <option value="AOK RLP/Saarland">AOK RLP/Saarland</option>
+          <option value="AOK Rheinland/HH">AOK Rheinland/HH</option>
+          <option value="AOK Sachsen-Anhalt">AOK Sachsen-Anhalt</option>
+          <option value="Audi BKK">Audi BKK</option>
+          <option value="BARMER">BARMER</option>
+          <option value="Bertelsmann BKK">Bertelsmann BKK</option>
+          <option value="BIG direkt gesund">BIG direkt gesund</option>
+          <option value="BKK 24">BKK 24</option>
+          <option value="BKK B. Braun Aesculap">BKK B. Braun Aesculap</option>
+          <option value="BKK Deutsche Bank AG">BKK Deutsche Bank AG</option>
+          <option value="BKK Dürkopp Adler">BKK Dürkopp Adler</option>
+          <option value="BKK EWE">BKK EWE</option>
+          <option value="BKK exklusiv">BKK exklusiv</option>
+          <option value="BKK Faber-Castell & Partner">BKK Faber-Castell &amp; Partner</option>
+          <option value="BKK firmus">BKK firmus</option>
+          <option value="BKK Freudenberg">BKK Freudenberg</option>
+          <option value="BKK GILDEMEISTER SEIDENSTICKER">BKK GILDEMEISTER SEIDENSTICKER</option>
+          <option value="BKK Groz-Beckert">BKK Groz-Beckert</option>
+          <option value="BKK Herkules">BKK Herkules</option>
+          <option value="BKK HMR">BKK HMR</option>
+          <option value="BKK Linde">BKK Linde</option>
+          <option value="BKK melitta hmr">BKK melitta hmr</option>
+          <option value="BKK mkk">BKK mkk</option>
+          <option value="BKK PFAFF">BKK PFAFF</option>
+          <option value="BKK Pfalz">BKK Pfalz</option>
+          <option value="BKK ProVita">BKK ProVita</option>
+          <option value="BKK Public">BKK Public</option>
+          <option value="BKK SBH">BKK SBH</option>
+          <option value="BKK Technoform">BKK Technoform</option>
+          <option value="BKK VBU">BKK VBU</option>
+          <option value="BKK VDN">BKK VDN</option>
+          <option value="BKK Verbundplus">BKK Verbundplus</option>
+          <option value="BKK Wirtschaft & Finanzen">BKK Wirtschaft &amp; Finanzen</option>
+          <option value="BKK ZF & Partner">BKK ZF &amp; Partner</option>
+          <option value="BOSCH BKK">BOSCH BKK</option>
+          <option value="Continentale BKK">Continentale BKK</option>
+          <option value="DAK-Gesundheit">DAK-Gesundheit</option>
+          <option value="Debeka BKK">Debeka BKK</option>
+          <option value="energie-BKK">energie-BKK</option>
+          <option value="envivas Krankenkasse">envivas Krankenkasse</option>
+          <option value="Ernst & Young BKK">Ernst &amp; Young BKK</option>
+          <option value="hkk">hkk</option>
+          <option value="HEK">HEK</option>
+          <option value="IKK BB/Berlin">IKK BB/Berlin</option>
+          <option value="IKK classic">IKK classic</option>
+          <option value="IKK gesund plus">IKK gesund plus</option>
+          <option value="IKK Südwest">IKK Südwest</option>
+          <option value="KKH">KKH</option>
+          <option value="Knappschaft">Knappschaft</option>
+          <option value="Koenig & Bauer BKK">Koenig &amp; Bauer BKK</option>
+          <option value="Krones BKK">Krones BKK</option>
+          <option value="Landwirtschaftliche KK">Landwirtschaftliche KK</option>
+          <option value="Metzinger BKK">Metzinger BKK</option>
+          <option value="mhplus BKK">mhplus BKK</option>
+          <option value="Novitas BKK">Novitas BKK</option>
+          <option value="Pronova BKK">Pronova BKK</option>
+          <option value="R+V BKK">R+V BKK</option>
+          <option value="Salus BKK">Salus BKK</option>
+          <option value="SBK">SBK</option>
+          <option value="SECURVITA">SECURVITA</option>
+          <option value="SKD BKK">SKD BKK</option>
+          <option value="TK">TK</option>
+          <option value="TUI BKK">TUI BKK</option>
+          <option value="VIACTIV">VIACTIV</option>
+          <option value="vivida bkk">vivida bkk</option>
+          <option value="WMF BKK">WMF BKK</option>
+          <option value="ZF BKK">ZF BKK</option>
+        </optgroup>
+      </select></label></div>
+    <div class="field" id="kvz-wrap"><label><span class="lbl">KV-Zusatzbeitrag AN (%)</span>
+      <input type="text" id="an-kvz" value="1,50" oninput="fmtIn(this)">
+      <p class="hint" id="kvz-hint"></p></label></div>
+    <div class="field"><label><span class="lbl">Beschäftigungsart</span>
+      <select id="an-art">
+        <option value="vz">Vollzeit</option>
+        <option value="tz">Teilzeit</option>
+        <option value="mini">Minijob</option>
+        <option value="ggf">Gesellschafter-GF</option>
+        <option value="aktivrente">Aktiv-Rente</option>
+      </select></label></div>
+    <div class="field" style="display:flex;align-items:flex-end;padding-bottom:2px;">
+      <label style="display:flex;align-items:center;gap:5px;cursor:pointer;">
+        <input type="checkbox" id="an-kinder"><span class="lbl" style="margin:0;">Kinder (PV)</span>
       </label>
     </div>
   </div>
 
-  <!-- ── BRUTTO-GEHALT ────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-title">Brutto-Gehalt</div>
-    <div class="row">
-      <div class="field">
-        <label><span class="lbl">Brutto-Gehalt (€)</span>
-          <input type="text" id="brutto" placeholder="4.000,00" value="4.000,00" oninput="fmtInput(this);berechne()">
-        </label>
-      </div>
-      <div class="field">
-        <label><span class="lbl">Entgeltgruppe / Tarifgruppe</span>
-          <input type="text" id="entgeltgruppe" placeholder="z.B. EG 6 / frei">
-        </label>
-      </div>
-    </div>
-
-    <!-- Zulagen -->
-    <div class="card-title" style="margin-top:8px;">Zulagen & Sonderzahlungen</div>
-    <div id="zulagen-list"></div>
-    <button class="add-btn" onclick="addZulage()">+ Zulage hinzufügen</button>
+  <!-- PKV-Zeile -->
+  <div id="pkv-wrap" style="display:none;" class="g2 mb">
+    <div class="field"><label><span class="lbl">PKV-Beitrag AN (€/Monat)</span>
+      <input type="text" id="an-pkv-b" value="0,00" oninput="fmtIn(this)">
+      <p class="hint">Mindert zvE · § 10 Abs. 1 Nr. 3 EStG</p></label></div>
+    <div class="field"><label><span class="lbl">AG-Zuschuss PKV (€/Monat)</span>
+      <input type="text" id="an-pkv-z" value="0,00" oninput="fmtIn(this)">
+      <p class="hint">Nettolohnabzug · max. ½ Gesamtbeitrag</p></label></div>
   </div>
 
-  <!-- ── ABZÜGE (MANUELL) ─────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-title">Sonstige Abzüge</div>
-    <p class="hint" style="margin-bottom:14px;">Nettolohnabzüge (z.B. Pfändungen, Pkw-Sachbezug, Vermögenswirksame Leistungen)</p>
-    <div id="abzuege-list"></div>
-    <button class="add-btn" onclick="addAbzug()">+ Abzug hinzufügen</button>
+  <!-- Zeiten -->
+  <div class="card-title" style="margin-top:8px;">Zeiten &amp; Urlaub</div>
+  <div class="g6 mb">
+    <div class="field"><label><span class="lbl">Anw. Tage</span><input type="text" id="zt-at"></label></div>
+    <div class="field"><label><span class="lbl">Url. Tage</span><input type="text" id="zt-ut"></label></div>
+    <div class="field"><label><span class="lbl">Krankh. Tage</span><input type="text" id="zt-kt"></label></div>
+    <div class="field"><label><span class="lbl">Fehlz. Tage</span><input type="text" id="zt-ft"></label></div>
+    <div class="field"><label><span class="lbl">VJ Url. üb.</span><input type="text" id="zt-vju"></label></div>
+    <div class="field"><label><span class="lbl">Url. Anspruch</span><input type="text" id="zt-ua" placeholder="30"></label></div>
   </div>
-
-  <!-- ── BERECHNUNG ───────────────────────────────────────────── -->
-  <div class="card">
-    <div class="card-title">Berechnung</div>
-    <div id="calc-preview" style="margin-bottom:20px;"></div>
-    <button class="btn-primary" onclick="generatePreview()">Abrechnung erstellen</button>
+  <div class="g6">
+    <div class="field"><label><span class="lbl">Anw. Std.</span><input type="text" id="zt-as"></label></div>
+    <div class="field"><label><span class="lbl">Url. Std.</span><input type="text" id="zt-us"></label></div>
+    <div class="field"><label><span class="lbl">Krankh. Std.</span><input type="text" id="zt-ks"></label></div>
+    <div class="field"><label><span class="lbl">Fehlz. Std.</span><input type="text" id="zt-fs"></label></div>
+    <div class="field"><label><span class="lbl">Zeitlohn Std.</span><input type="text" id="zt-zs"></label></div>
+    <div class="field"><label><span class="lbl">Bez. Std.</span><input type="text" id="zt-bs"></label></div>
   </div>
-
-  <!-- ── VORSCHAU & EXPORT ────────────────────────────────────── -->
-  <div id="preview-wrap">
-    <div class="toolbar">
-      <button class="btn-secondary" onclick="window.print()">&#128438; Drucken / Als PDF speichern</button>
-      <button class="btn-secondary" onclick="exportHTML()">&#128190; HTML speichern</button>
-    </div>
-    <div class="preview-doc" id="preview-doc"></div>
-  </div>
-
-  <p class="disclaimer">Alle Berechnungen sind Näherungswerte auf Basis der jeweils angegebenen Rechtsgrundlagen. Individuelle Faktoren bleiben unberücksichtigt. Kein Ersatz für individuelle Steuer- oder Rechtsberatung · Alle Angaben ohne Gewähr</p>
-
 </div>
 
-<footer>© Robin Glowania</footer>
+<!-- ══ HINWEISE ZUR ABRECHNUNG ══════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Hinweise zur Abrechnung</div>
+  <div id="hw-list"></div>
+  <button class="btn-sm" style="margin-top:6px;" onclick="addHW()">+ Hinweis</button>
+</div>
+
+<!-- ══ LOHNARTEN ════════════════════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Brutto-Bezüge · Lohnarten</div>
+  <div class="quick-btns">
+    <button class="btn-sm" onclick="addLA('001','Gehalt','LL')">001 Gehalt</button>
+    <button class="btn-sm" onclick="addLA('002','Lohn','LL')">002 Lohn</button>
+    <button class="btn-sm" onclick="addLA('040','Überstunden','LL')">040 Überstunden</button>
+    <button class="btn-sm" onclick="addLA('060','Urlaubsgeld','SL')">060 Urlaubsgeld</button>
+    <button class="btn-sm" onclick="addLA('070','Weihnachtsgeld','SL')">070 Weihnachtsgeld</button>
+    <button class="btn-sm" onclick="addLA('080','VWL-AG-Anteil','FF')">080 VWL-AG-Anteil</button>
+    <button class="btn-sm" onclick="addLA('810','Firmenrad ST/SV-frei','FF')">810 Firmenrad</button>
+    <button class="btn-sm" onclick="addLA('843','bKV Sachzuwendung','PE')">843 bKV Sachzuw.</button>
+    <button class="btn-sm" onclick="addLA('844','Übern. SV AN aus Sachz.','SE')">844 Übern. SV AN</button>
+    <button class="btn-sm" onclick="addLA('845','Übern. Steuer aus SV AN','SF')">845 Übern. St.</button>
+    <button class="btn-sm" onclick="addLA('853','Fahrgeld pau. verst.','PF')">853 Fahrgeld pau.</button>
+    <button class="btn-sm" onclick="addLA('901','Betr.AV AG lfd. ST-frei','FF')">901 bAV AG</button>
+    <button class="btn-sm" onclick="addLA('','Eigene Lohnart','LL')">+ Eigene</button>
+  </div>
+  <div style="overflow-x:auto;">
+  <table class="la-tbl">
+    <thead><tr>
+      <th style="width:65px;">Lohnart</th>
+      <th style="min-width:180px;">Bezeichnung</th>
+      <th style="width:155px;" title="St: L=lfd, S=einmalig, P=pauschal §40, F=steuerfrei | SV: L=lfd sv-pflichtig, E=einmalig, F=sv-frei">St/SV-Kennzeichen</th>
+      <th style="width:80px;">Menge</th>
+      <th style="width:80px;">Faktor</th>
+      <th style="width:100px;">Betrag (€)</th>
+      <th style="width:34px;"></th>
+    </tr></thead>
+    <tbody id="la-body"></tbody>
+    <tfoot><tr class="la-sum-row">
+      <td colspan="5" style="text-align:right;font-size:10px;color:var(--text-muted);padding-right:8px;">Gesamt-Brutto</td>
+      <td id="la-sum">0,00 €</td><td></td>
+    </tr></tfoot>
+  </table>
+  </div>
+  <button class="btn-sm" style="margin-top:6px;" onclick="addLA('','','LL')">+ Zeile</button>
+</div>
+
+<!-- ══ NETTO-BEZÜGE / ABZÜGE ════════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Netto-Bezüge / Netto-Abzüge</div>
+  <div style="overflow-x:auto;">
+  <table class="la-tbl">
+    <thead><tr>
+      <th style="width:65px;">Nr.</th>
+      <th style="min-width:180px;">Bezeichnung</th>
+      <th style="width:120px;">Art</th>
+      <th style="width:100px;">Betrag (€)</th>
+      <th style="width:34px;"></th>
+    </tr></thead>
+    <tbody id="na-body"></tbody>
+  </table>
+  </div>
+  <div class="quick-btns" style="margin-top:8px;">
+    <button class="btn-sm" onclick="addNA('9000','bKV','abzug')">9000 bKV</button>
+    <button class="btn-sm" onclick="addNA('9171','Rad Privatfahrt frei','bezug')">9171 Rad Privatfahrt</button>
+    <button class="btn-sm" onclick="addNA('9998','Vermögensbildung','abzug')">9998 VL</button>
+    <button class="btn-sm" onclick="addNA('','Pfändung','abzug')">Pfändung</button>
+    <button class="btn-sm" onclick="addNA('','Darlehen','abzug')">Darlehen</button>
+    <button class="btn-sm" onclick="addNA('','','abzug')">+ Abzug</button>
+    <button class="btn-sm" onclick="addNA('','','bezug')">+ Bezug</button>
+  </div>
+</div>
+
+<!-- ══ BANK ═════════════════════════════════════════════════════ -->
+<div class="card no-print">
+  <div class="card-title">Bankverbindung Arbeitnehmer</div>
+  <div class="g3">
+    <div class="field"><label><span class="lbl">Bank</span><input type="text" id="an-bank" placeholder="Sparkasse Markgräflerland"></label></div>
+    <div class="field"><label><span class="lbl">IBAN</span><input type="text" id="an-iban" placeholder="DE35 6835 1865 0108 81.."></label></div>
+    <div class="field"><label><span class="lbl">Auszahlungsbetrag (berechnet)</span>
+      <input type="text" id="an-ausz" readonly style="background:var(--accent-dim);color:var(--accent);font-weight:500;"></label></div>
+  </div>
+</div>
+
+<!-- ══ AKTIONEN ══════════════════════════════════════════════════ -->
+<div class="no-print toolbar">
+  <button class="btn-primary" onclick="generatePreview()">&#128196; Abrechnung erstellen</button>
+  <button class="btn-sec" onclick="exportLodas()">&#128229; DATEV LODAS CSV</button>
+</div>
+
+<!-- ══ DRUCKVORSCHAU ════════════════════════════════════════════ -->
+<div id="preview-wrap">
+  <div class="toolbar no-print">
+    <button class="btn-sec" onclick="window.print()">&#128438; Drucken / PDF</button>
+  </div>
+  <div class="dv" id="dv-doc"></div>
+</div>
+
+<p class="disclaimer no-print">Alle Berechnungen sind Näherungswerte auf Basis der jeweils angegebenen Rechtsgrundlagen. Individuelle Faktoren bleiben unberücksichtigt. Kein Ersatz für individuelle Steuer- oder Rechtsberatung · Alle Angaben ohne Gewähr</p>
+</div>
+<footer class="no-print">© Robin Glowania · Zuletzt aktualisiert: 07.05.2026</footer>
 
 <script>
-/* ── Theme ────────────────────────────────────────────────────── */
-function setTheme(t) {
-  if (t === 'system') {
-    document.documentElement.removeAttribute('data-theme');
-  } else {
-    document.documentElement.setAttribute('data-theme', t);
-  }
-  try { localStorage.setItem('g-theme', t); } catch(e){}
-  document.querySelectorAll('.theme-btn').forEach(function(b){ b.classList.remove('active'); });
-  var btn = document.getElementById('btn-' + t);
-  if (btn) btn.classList.add('active');
+/* ── Theme ──────────────────────────────────────────────────── */
+function setTheme(t){
+  t==='system'?document.documentElement.removeAttribute('data-theme'):document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('g-theme',t);}catch(e){}
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  var b=document.getElementById('btn-'+t);if(b)b.classList.add('active');
 }
-(function(){
-  var saved = 'system';
-  try { saved = localStorage.getItem('g-theme') || 'system'; } catch(e){}
-  setTheme(saved);
-})();
+(function(){var s='system';try{s=localStorage.getItem('g-theme')||'system';}catch(e){}setTheme(s);})();
 
-/* ── Formatierung ────────────────────────────────────────────── */
-function parseDe(s){
-  if(!s) return 0;
-  s = String(s).replace(/\./g,'').replace(',','.');
-  return parseFloat(s)||0;
-}
-function fmtEur(n){
-  return n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function fmtPct(n){
-  return n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function fmtInput(inp){
-  var raw = inp.value.replace(/[^\d,]/g,'');
-  inp.value = raw;
-}
+/* ── Formatierung ───────────────────────────────────────────── */
+function pDe(s){if(!s)return 0;return parseFloat(String(s).replace(/\./g,'').replace(',','.'))||0;}
+function fEur(n){return n.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtIn(el){el.value=el.value.replace(/[^\d,]/g,'');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function v(id){return(document.getElementById(id)||{}).value||'';}
+function getJahr(){var m=v('monat');if(m){var y=parseInt(m.split('-')[0]);if(y===2025||y===2026)return y;}return 2025;}
+function getMonatTxt(){var m=v('monat');if(!m)return '';var d=new Date(m+'-01');return d.toLocaleDateString('de-DE',{month:'long',year:'numeric'});}
 
-/* ── Zulagen ─────────────────────────────────────────────────── */
-var zulagenCnt = 0;
-function addZulage(){
-  zulagenCnt++;
-  var id = 'z' + zulagenCnt;
-  var div = document.createElement('div');
-  div.className = 'zulage-row';
-  div.id = id;
-  div.innerHTML =
-    '<label><span class="lbl">Bezeichnung</span><input type="text" placeholder="Überstundenzulage"></label>' +
-    '<label><span class="lbl">Betrag (€)</span><input type="text" placeholder="0,00" oninput="fmtInput(this);berechne()"></label>' +
-    '<button class="btn-del" onclick="document.getElementById(\''+id+'\').remove();berechne()">×</button>';
-  document.getElementById('zulagen-list').appendChild(div);
-}
-
-/* ── Abzüge ──────────────────────────────────────────────────── */
-var abzuegeCnt = 0;
-function addAbzug(){
-  abzuegeCnt++;
-  var id = 'a' + abzuegeCnt;
-  var div = document.createElement('div');
-  div.className = 'abzug-row';
-  div.id = id;
-  div.innerHTML =
-    '<label><span class="lbl">Bezeichnung</span><input type="text" placeholder="VL-Leistung"></label>' +
-    '<label><span class="lbl">Betrag (€)</span><input type="text" placeholder="0,00" oninput="fmtInput(this);berechne()"></label>' +
-    '<button class="btn-del" onclick="document.getElementById(\''+id+'\').remove();berechne()">×</button>';
-  document.getElementById('abzuege-list').appendChild(div);
-}
-
-/* ── GKV-Zusatzbeiträge (kassenindividuell) ──────────────────── */
-/* Quelle: GKV-Spitzenverband / krankenkasseninfo.de, Stand Jan 2026 */
-/* Gesamtzusatzbeitrag in %; AN-Anteil = Wert / 2                    */
-var GKV = {
-  'AOK BW':                      { 2025: 2.99, 2026: 2.99 },
-  'AOK Bayern':                  { 2025: 2.69, 2026: 2.69 },
-  'AOK Bremen/Bremerhaven':      { 2025: 2.69, 2026: 3.29 },
-  'AOK Hessen':                  { 2025: 2.49, 2026: 2.98 },
-  'AOK Niedersachsen':           { 2025: 2.70, 2026: 2.98 },
-  'AOK Nordost':                 { 2025: 2.70, 2026: 3.29 },
-  'AOK NordWest':                { 2025: 2.79, 2026: 2.99 },
-  'AOK PLUS':                    { 2025: 3.10, 2026: 3.10 },
-  'AOK RLP/Saarland':            { 2025: 2.47, 2026: 2.47 },
-  'AOK Rheinland/HH':            { 2025: 2.80, 2026: 3.29 },
-  'AOK Sachsen-Anhalt':          { 2025: 2.50, 2026: 2.89 },
-  'Audi BKK':                    { 2025: 2.40, 2026: 2.60 },
-  'BARMER':                      { 2025: 2.19, 2026: 2.99 },
-  'Bertelsmann BKK':             { 2025: 3.20, 2026: 3.20 },
-  'BIG direkt gesund':           { 2025: 2.98, 2026: 3.48 },
-  'BKK 24':                      { 2025: 4.40, 2026: 4.39 },
-  'BKK B. Braun Aesculap':      { 2025: 3.65, 2026: 3.65 },
-  'BKK Deutsche Bank AG':        { 2025: 2.59, 2026: 3.09 },
-  'BKK Dürkopp Adler':          { 2025: 3.49, 2026: 3.49 },
-  'BKK EWE':                     { 2025: 2.59, 2026: 2.99 },
-  'BKK exklusiv':                { 2025: 3.00, 2026: 3.20 },
-  'BKK Faber-Castell & Partner': { 2025: 2.18, 2026: 2.48 },
-  'BKK firmus':                  { 2025: 2.18, 2026: 2.18 },
-  'BKK Freudenberg':             { 2025: 2.49, 2026: 2.99 },
-  'BKK GILDEMEISTER SEIDENSTICKER': { 2025: 3.40, 2026: 3.40 },
-  'BKK Groz-Beckert':            { 2025: 2.50, 2026: 2.80 },
-  'BKK Herkules':                { 2025: 4.38, 2026: 4.38 },
-  'BKK HMR':                     { 2025: 2.80, 2026: 3.20 },
-  'BKK Linde':                   { 2025: 2.99, 2026: 2.99 },
-  'BKK melitta hmr':             { 2025: 3.40, 2026: 3.90 },
-  'BKK mkk':                     { 2025: 3.50, 2026: 3.50 },
-  'BKK PFAFF':                   { 2025: 2.78, 2026: 2.78 },
-  'BKK Pfalz':                   { 2025: 3.90, 2026: 3.90 },
-  'BKK ProVita':                 { 2025: 3.39, 2026: 3.79 },
-  'BKK Public':                  { 2025: 2.30, 2026: 2.50 },
-  'BKK SBH':                     { 2025: 2.44, 2026: 2.79 },
-  'BKK Technoform':              { 2025: 2.80, 2026: 3.20 },
-  'BKK VBU':                     { 2025: 2.59, 2026: 3.09 },
-  'BKK VDN':                     { 2025: 3.19, 2026: 3.19 },
-  'BKK Verbundplus':             { 2025: 3.09, 2026: 3.39 },
-  'BKK Wirtschaft & Finanzen':   { 2025: 2.80, 2026: 3.40 },
-  'BKK ZF & Partner':            { 2025: 3.40, 2026: 3.40 },
-  'BOSCH BKK':                   { 2025: 2.68, 2026: 3.18 },
-  'Continentale BKK':            { 2025: 2.99, 2026: 3.39 },
-  'DAK-Gesundheit':              { 2025: 2.80, 2026: 3.20 },
-  'Debeka BKK':                  { 2025: 2.49, 2026: 2.99 },
-  'energie-BKK':                 { 2025: 2.79, 2026: 3.09 },
-  'envivas Krankenkasse':        { 2025: 2.80, 2026: 3.20 },
-  'Ernst & Young BKK':           { 2025: 2.50, 2026: 2.80 },
-  'hkk':                         { 2025: 2.59, 2026: 2.59 },
-  'HEK':                         { 2025: 2.50, 2026: 2.89 },
-  'IKK BB/Berlin':               { 2025: 2.80, 2026: 3.20 },
-  'IKK classic':                 { 2025: 2.20, 2026: 2.80 },
-  'IKK gesund plus':             { 2025: 2.80, 2026: 3.49 },
-  'IKK Südwest':                 { 2025: 2.19, 2026: 2.99 },
-  'KKH':                         { 2025: 2.58, 2026: 3.08 },
-  'Knappschaft':                 { 2025: 2.80, 2026: 3.40 },
-  'Koenig & Bauer BKK':          { 2025: 2.50, 2026: 2.90 },
-  'Krones BKK':                  { 2025: 2.79, 2026: 2.99 },
-  'Landwirtschaftliche KK':      { 2025: 2.80, 2026: 2.80 },
-  'Metzinger BKK':               { 2025: 2.80, 2026: 3.20 },
-  'mhplus BKK':                  { 2025: 2.99, 2026: 3.49 },
-  'Novitas BKK':                 { 2025: 2.80, 2026: 3.20 },
-  'Pronova BKK':                 { 2025: 2.80, 2026: 3.20 },
-  'R+V BKK':                     { 2025: 2.80, 2026: 3.29 },
-  'Salus BKK':                   { 2025: 3.48, 2026: 3.48 },
-  'SBK':                         { 2025: 2.10, 2026: 2.99 },
-  'SECURVITA':                   { 2025: 3.90, 2026: 3.90 },
-  'SKD BKK':                     { 2025: 2.48, 2026: 2.98 },
-  'TK':                          { 2025: 2.45, 2026: 2.69 },
-  'TUI BKK':                     { 2025: 2.50, 2026: 2.50 },
-  'VIACTIV':                     { 2025: 3.39, 2026: 4.19 },
-  'vivida bkk':                  { 2025: 3.79, 2026: 3.79 },
-  'WMF BKK':                     { 2025: 2.45, 2026: 2.85 },
-  'ZF BKK':                      { 2025: 3.40, 2026: 3.40 }
-};
-
-/* Durchschnittlicher Zusatzbeitrag (gesetzlich festgesetzt, § 242a SGB V) */
-var KVZ_DURCHSCHNITT = { 2025: 1.90, 2026: 2.90 };
+/* ── GKV-Daten ──────────────────────────────────────────────── */
+var GKV={'AOK BW':{2025:2.99,2026:2.99},'AOK Bayern':{2025:2.69,2026:2.69},'AOK Bremen/Bremerhaven':{2025:2.69,2026:3.29},'AOK Hessen':{2025:2.49,2026:2.98},'AOK Niedersachsen':{2025:2.70,2026:2.98},'AOK Nordost':{2025:2.70,2026:3.29},'AOK NordWest':{2025:2.79,2026:2.99},'AOK PLUS':{2025:3.10,2026:3.10},'AOK RLP/Saarland':{2025:2.47,2026:2.47},'AOK Rheinland/HH':{2025:2.80,2026:3.29},'AOK Sachsen-Anhalt':{2025:2.50,2026:2.89},'Audi BKK':{2025:2.40,2026:2.60},'BARMER':{2025:2.19,2026:2.99},'Bertelsmann BKK':{2025:3.20,2026:3.20},'BIG direkt gesund':{2025:2.98,2026:3.48},'BKK 24':{2025:4.40,2026:4.39},'BKK B. Braun Aesculap':{2025:3.65,2026:3.65},'BKK Deutsche Bank AG':{2025:2.59,2026:3.09},'BKK Dürkopp Adler':{2025:3.49,2026:3.49},'BKK EWE':{2025:2.59,2026:2.99},'BKK exklusiv':{2025:3.00,2026:3.20},'BKK Faber-Castell & Partner':{2025:2.18,2026:2.48},'BKK firmus':{2025:2.18,2026:2.18},'BKK Freudenberg':{2025:2.49,2026:2.99},'BKK GILDEMEISTER SEIDENSTICKER':{2025:3.40,2026:3.40},'BKK Groz-Beckert':{2025:2.50,2026:2.80},'BKK Herkules':{2025:4.38,2026:4.38},'BKK HMR':{2025:2.80,2026:3.20},'BKK Linde':{2025:2.99,2026:2.99},'BKK melitta hmr':{2025:3.40,2026:3.90},'BKK mkk':{2025:3.50,2026:3.50},'BKK PFAFF':{2025:2.78,2026:2.78},'BKK Pfalz':{2025:3.90,2026:3.90},'BKK ProVita':{2025:3.39,2026:3.79},'BKK Public':{2025:2.30,2026:2.50},'BKK SBH':{2025:2.44,2026:2.79},'BKK Technoform':{2025:2.80,2026:3.20},'BKK VBU':{2025:2.59,2026:3.09},'BKK VDN':{2025:3.19,2026:3.19},'BKK Verbundplus':{2025:3.09,2026:3.39},'BKK Wirtschaft & Finanzen':{2025:2.80,2026:3.40},'BKK ZF & Partner':{2025:3.40,2026:3.40},'BOSCH BKK':{2025:2.68,2026:3.18},'Continentale BKK':{2025:2.99,2026:3.39},'DAK-Gesundheit':{2025:2.80,2026:3.20},'Debeka BKK':{2025:2.49,2026:2.99},'energie-BKK':{2025:2.79,2026:3.09},'envivas Krankenkasse':{2025:2.80,2026:3.20},'Ernst & Young BKK':{2025:2.50,2026:2.80},'hkk':{2025:2.59,2026:2.59},'HEK':{2025:2.50,2026:2.89},'IKK BB/Berlin':{2025:2.80,2026:3.20},'IKK classic':{2025:2.20,2026:2.80},'IKK gesund plus':{2025:2.80,2026:3.49},'IKK Südwest':{2025:2.19,2026:2.99},'KKH':{2025:2.58,2026:3.08},'Knappschaft':{2025:2.80,2026:3.40},'Koenig & Bauer BKK':{2025:2.50,2026:2.90},'Krones BKK':{2025:2.79,2026:2.99},'Landwirtschaftliche KK':{2025:2.80,2026:2.80},'Metzinger BKK':{2025:2.80,2026:3.20},'mhplus BKK':{2025:2.99,2026:3.49},'Novitas BKK':{2025:2.80,2026:3.20},'Pronova BKK':{2025:2.80,2026:3.20},'R+V BKK':{2025:2.80,2026:3.29},'Salus BKK':{2025:3.48,2026:3.48},'SBK':{2025:2.10,2026:2.99},'SECURVITA':{2025:3.90,2026:3.90},'SKD BKK':{2025:2.48,2026:2.98},'TK':{2025:2.45,2026:2.69},'TUI BKK':{2025:2.50,2026:2.50},'VIACTIV':{2025:3.39,2026:4.19},'vivida bkk':{2025:3.79,2026:3.79},'WMF BKK':{2025:2.45,2026:2.85},'ZF BKK':{2025:3.40,2026:3.40}};
 
 function kkGewaehlt(){
-  var kasse = document.getElementById('an-kk').value;
-  var isPKV = (kasse === 'PKV');
-
-  // Felder ein-/ausblenden
-  document.getElementById('kvz-wrap').style.display    = isPKV ? 'none' : '';
-  document.getElementById('pkv-wrap').style.display    = isPKV ? ''     : 'none';
-  document.getElementById('pv-kinder-wrap').style.display = isPKV ? 'none' : '';
-
+  var kk=v('an-kk'),isPKV=kk==='PKV',jahr=getJahr();
+  document.getElementById('kvz-wrap').style.display=isPKV?'none':'';
+  document.getElementById('pkv-wrap').style.display=isPKV?'':'none';
   if(!isPKV){
-    var jahr = getJahr();
-    var zb = GKV[kasse];
-    if(zb && zb[jahr] !== undefined){
-      var anAnteil = (zb[jahr] / 2).toFixed(2).replace('.',',');
-      document.getElementById('an-kvz').value = anAnteil;
-      document.getElementById('kvz-hint').textContent =
-        'Kassensatz '+jahr+': '+zb[jahr].toFixed(2).replace('.',',')+' % gesamt · AN-Anteil: '+anAnteil+' %';
-    } else {
-      var avg = KVZ_DURCHSCHNITT[jahr] || 1.90;
-      document.getElementById('an-kvz').value = (avg/2).toFixed(2).replace('.',',');
-      document.getElementById('kvz-hint').textContent =
-        'Ø '+jahr+': '+avg.toFixed(2).replace('.',',')+' % gesamt (gesetzlicher Durchschnitt)';
+    var zb=GKV[kk];
+    if(zb&&zb[jahr]){
+      var an=(zb[jahr]/2).toFixed(2).replace('.',',');
+      document.getElementById('an-kvz').value=an;
+      document.getElementById('kvz-hint').textContent='Kassensatz '+jahr+': '+zb[jahr].toFixed(2).replace('.',',')+'% · AN-Anteil: '+an+'%';
     }
   }
-  berechne();
 }
-var JAHRESWERTE = {
-  2024: {
-    sv: {
-      rv: { an: 0.093 },
-      av: { an: 0.013 },
-      kv: { an: 0.073 },
-      pv: { an: 0.017 },
-      pvKeinKind: 0.006
-    },
-    bbgRvAv: 7550,
-    bbgKvPv: 5175,
-    wkPausch: 102.5,          // 1.230 / 12
-    entlastungII: 4260,
-    solzFreigrenze: 17543,
-    grundtabelle: function(z){
-      if(z <= 0) return 0;
-      var lst;
-      if(z <= 11604)      { lst = 0; }
-      else if(z <= 16991) { var y=(z-11604)/10000; lst=(979.18*y+1400)*y; }
-      else if(z <= 66760) { var y=(z-16991)/10000; lst=(192.59*y+2397)*y+966.53; }
-      else if(z <= 277825){ lst=0.42*z-10602.13; }
-      else                { lst=0.45*z-18936.88; }
-      return Math.max(0,Math.floor(lst));
-    }
-  },
-  2025: {
-    sv: {
-      rv: { an: 0.093 },
-      av: { an: 0.013 },
-      kv: { an: 0.073 },
-      pv: { an: 0.018 },
-      pvKeinKind: 0.006
-    },
-    bbgRvAv: 8050,
-    bbgKvPv: 5512.50,
-    wkPausch: 102.5,
-    entlastungII: 4260,
-    solzFreigrenze: 18130,
-    grundtabelle: function(z){
-      if(z <= 0) return 0;
-      var lst;
-      if(z <= 11784)      { lst = 0; }
-      else if(z <= 17005) { var y=(z-11784)/10000; lst=(979.18*y+1400)*y; }
-      else if(z <= 66760) { var y=(z-17005)/10000; lst=(192.59*y+2397)*y+1025.38; }
-      else if(z <= 277826){ lst=0.42*z-10602.13; }
-      else                { lst=0.45*z-18936.88; }
-      return Math.max(0,Math.floor(lst));
-    }
-  },
-  2026: {
-    sv: {
-      rv: { an: 0.093 },
-      av: { an: 0.013 },
-      kv: { an: 0.073 },
-      pv: { an: 0.018 },
-      pvKeinKind: 0.006
-    },
-    bbgRvAv: 8050,       // vorläufig – wird aktualisiert wenn amtlich
-    bbgKvPv: 5512.50,    // vorläufig
-    wkPausch: 102.5,
-    entlastungII: 4260,
-    solzFreigrenze: 18130,
-    grundtabelle: function(z){
-      // Grundfreibetrag 2026: 12.096 € (geplant, Steuerfortentwicklungsgesetz)
-      if(z <= 0) return 0;
-      var lst;
-      if(z <= 12096)      { lst = 0; }
-      else if(z <= 17443) { var y=(z-12096)/10000; lst=(979.18*y+1400)*y; }
-      else if(z <= 67346) { var y=(z-17443)/10000; lst=(192.59*y+2397)*y+1085.15; }
-      else if(z <= 277825){ lst=0.42*z-10602.13; }
-      else                { lst=0.45*z-18936.88; }
-      return Math.max(0,Math.floor(lst));
-    }
-  }
+function monatGeaendert(){kkGewaehlt();updateSums();}
+
+/* ── Jahreswerte ────────────────────────────────────────────── */
+var JW={
+  2025:{rv:0.093,av:0.013,kv:0.073,pv:0.018,pvK:0.006,bbgRV:8050,bbgKV:5512.5,wk:102.5,entlII:4260,solzF:18130,
+    lst:function(z){if(z<=0)return 0;var l;if(z<=11784)l=0;else if(z<=17005){var y=(z-11784)/1e4;l=(979.18*y+1400)*y;}else if(z<=66760){var y=(z-17005)/1e4;l=(192.59*y+2397)*y+1025.38;}else if(z<=277826)l=0.42*z-10602.13;else l=0.45*z-18936.88;return Math.max(0,Math.floor(l));}},
+  2026:{rv:0.093,av:0.013,kv:0.073,pv:0.018,pvK:0.006,bbgRV:8050,bbgKV:5512.5,wk:102.5,entlII:4260,solzF:18130,
+    lst:function(z){if(z<=0)return 0;var l;if(z<=12096)l=0;else if(z<=17443){var y=(z-12096)/1e4;l=(979.18*y+1400)*y;}else if(z<=67346){var y=(z-17443)/1e4;l=(192.59*y+2397)*y+1085.15;}else if(z<=277825)l=0.42*z-10602.13;else l=0.45*z-18936.88;return Math.max(0,Math.floor(l));}}
 };
 
-function getJahr(){
-  var monat = document.getElementById('monat').value;
-  if(monat){ var y = parseInt(monat.split('-')[0]); if(JAHRESWERTE[y]) return y; }
-  return 2025;
+/* ── Kennzeichen ─────────────────────────────────────────────── */
+// St-Kennzeichen: L=lfd, S=sonst/einmalig, P=pauschal §40, F=steuerfrei
+// SV-Kennzeichen: L=lfd sv-pflichtig, E=einmalig sv-pflichtig, F=sv-frei
+var KENN=[
+  {v:'LL',l:'LL – lfd., sv-pflichtig'},
+  {v:'SL',l:'SL – einmalig, sv-pflichtig'},
+  {v:'LE',l:'LE – lfd., SV einmalig'},
+  {v:'SE',l:'SE – einmalig, SV einmalig'},
+  {v:'LF',l:'LF – lfd., sv-frei'},
+  {v:'SF',l:'SF – einmalig, sv-frei'},
+  {v:'PL',l:'PL – pauschal §40, sv-pflichtig'},
+  {v:'PE',l:'PE – pauschal §40, SV einmalig'},
+  {v:'PF',l:'PF – pauschal §40, sv-frei'},
+  {v:'FF',l:'FF – steuerfrei, sv-frei'},
+  {v:'FL',l:'FL – steuerfrei, sv-pflichtig'},
+];
+
+/* ── Lohnarten ───────────────────────────────────────────────── */
+var laCnt=0;
+function addLA(nr,bez,kenn){
+  laCnt++;var id='la'+laCnt;
+  var opts=KENN.map(k=>'<option value="'+k.v+'"'+(k.v===kenn?' selected':'')+'>'+k.l+'</option>').join('');
+  var tr=document.createElement('tr');tr.id=id;
+  tr.innerHTML='<td><input type="text" value="'+esc(nr)+'" placeholder="001" style="text-align:center;width:100%;"></td>'+
+    '<td><input type="text" value="'+esc(bez)+'" placeholder="Bezeichnung" style="width:100%;"></td>'+
+    '<td><select style="width:100%;">'+opts+'</select></td>'+
+    '<td class="r"><input type="text" value="" placeholder="—" style="width:100%;" oninput="calcLA(this)"></td>'+
+    '<td class="r"><input type="text" value="" placeholder="—" style="width:100%;" oninput="calcLA(this)"></td>'+
+    '<td class="r"><input type="text" value="" placeholder="0,00" style="width:100%;" oninput="fmtIn(this);updateSums()"></td>'+
+    '<td><button class="btn-del" onclick="document.getElementById(\''+id+'\').remove();updateSums()">×</button></td>';
+  document.getElementById('la-body').appendChild(tr);updateSums();
+}
+function calcLA(el){
+  var row=el.closest('tr'),ins=row.querySelectorAll('input');
+  var m=pDe(ins[3].value),f=pDe(ins[4].value);
+  if(m&&f){ins[5].value=fEur(m*f);}
+  updateSums();
 }
 
-function lohnsteuerSchaetzen(zvE_jaehrlich, stklasse, kirche, jw){
-  var lst = 0;
-  var z = zvE_jaehrlich;
-  var gt = jw.grundtabelle;
-
-  if(stklasse === 'III'){
-    lst = gt(z / 2) * 2;
-  } else if(stklasse === 'V'){
-    lst = Math.max(0, zvE_jaehrlich * 0.33);
-  } else if(stklasse === 'VI'){
-    lst = Math.max(0, zvE_jaehrlich * 0.42);
-  } else {
-    lst = gt(z);
-    if(stklasse === 'II'){
-      lst = Math.max(0, gt(Math.max(0, z - jw.entlastungII)));
-    }
-  }
-
-  var solz = 0;
-  if(lst > jw.solzFreigrenze){
-    solz = Math.min(lst * 0.055, (lst - jw.solzFreigrenze) * 0.119);
-    solz = Math.max(0, solz);
-  }
-
-  var kist = lst * kirche;
-  return { lst: lst, solz: solz, kist: kist };
+/* ── Netto-Positionen ───────────────────────────────────────── */
+var naCnt=0;
+function addNA(nr,bez,art){
+  naCnt++;var id='na'+naCnt;
+  var tr=document.createElement('tr');tr.id=id;
+  tr.innerHTML='<td><input type="text" value="'+esc(nr)+'" placeholder="9000" style="text-align:center;width:100%;"></td>'+
+    '<td><input type="text" value="'+esc(bez)+'" placeholder="Bezeichnung" style="width:100%;"></td>'+
+    '<td><select style="width:100%;"><option value="abzug"'+(art==='abzug'?' selected':'')+'>Abzug (−)</option><option value="bezug"'+(art==='bezug'?' selected':'')+'>Bezug (+)</option></select></td>'+
+    '<td class="r"><input type="text" value="" placeholder="0,00" style="width:100%;" oninput="fmtIn(this);updateSums()"></td>'+
+    '<td><button class="btn-del" onclick="document.getElementById(\''+id+'\').remove();updateSums()">×</button></td>';
+  document.getElementById('na-body').appendChild(tr);
 }
 
-/* ── Kernberechnung ──────────────────────────────────────────── */
+/* ── Hinweise ───────────────────────────────────────────────── */
+var hwCnt=0;
+function addHW(){
+  hwCnt++;var id='hw'+hwCnt;
+  var div=document.createElement('div');div.id=id;
+  div.style.cssText='display:grid;grid-template-columns:1fr 90px auto;gap:8px;margin-bottom:8px;align-items:center;';
+  div.innerHTML='<input type="text" placeholder="z.B. Sachzuwendungen §37b EStG" style="width:100%;">'+
+    '<input type="text" placeholder="0,00" style="width:100%;text-align:right;" oninput="fmtIn(this)">'+
+    '<button class="btn-del" onclick="document.getElementById(\''+id+'\').remove()">×</button>';
+  document.getElementById('hw-list').appendChild(div);
+}
+
+/* ── Summen ─────────────────────────────────────────────────── */
+function updateSums(){
+  var s=0;
+  document.querySelectorAll('#la-body tr').forEach(r=>{var ins=r.querySelectorAll('input');if(ins[5])s+=pDe(ins[5].value);});
+  document.getElementById('la-sum').textContent=fEur(s)+' €';
+  var c=berechne();
+  if(c)document.getElementById('an-ausz').value=fEur(c.netto)+' €';
+}
+
+/* ══════════════════════════════════════════════════════════════
+   KERNBERECHNUNG
+   ══════════════════════════════════════════════════════════════ */
 function berechne(){
-  var brutto = parseDe(document.getElementById('brutto').value);
-  var jahr = getJahr();
-  var jw = JAHRESWERTE[jahr];
-  var SV = jw.sv;
+  var jahr=getJahr(),jw=JW[jahr];
+  var kk=v('an-kk'),isPKV=kk==='PKV';
+  var art=v('an-art'),sk=parseInt(v('an-stklasse'));
+  var kirche=parseFloat(v('an-kirche'))||0;
+  var hatKinder=document.getElementById('an-kinder').checked;
 
-  // Zulagen summieren
-  var zulagenGes = 0;
-  var zulagenItems = [];
-  document.querySelectorAll('#zulagen-list .zulage-row').forEach(function(row){
-    var inps = row.querySelectorAll('input');
-    var bez = inps[0].value || 'Zulage';
-    var betrag = parseDe(inps[1].value);
-    if(betrag){
-      zulagenItems.push({bez:bez, betrag:betrag});
-      zulagenGes += betrag;
-    }
+  // Lohnarten
+  var las=[],brSt=0,brSV=0,brGes=0,brL=0,brS=0,brP=0,brF=0;
+  document.querySelectorAll('#la-body tr').forEach(r=>{
+    var ins=r.querySelectorAll('input'),sels=r.querySelectorAll('select');
+    if(!ins[5])return;
+    var nr=ins[0].value,bez=ins[1].value,kenn=sels[0]?sels[0].value:'LL';
+    var m=ins[3].value,f=ins[4].value,bet=pDe(ins[5].value);
+    if(!bet&&!bez)return;
+    var stK=kenn[0]||'L',svK=kenn[1]||'L';
+    var stFrei=stK==='F',pauschal=stK==='P';
+    var svFrei=svK==='F';
+    if(!stFrei&&!pauschal)brSt+=bet;
+    if(!svFrei)brSV+=bet;
+    brGes+=bet;
+    if(stK==='L')brL+=bet;else if(stK==='S')brS+=bet;else if(stK==='P')brP+=bet;else if(stK==='F')brF+=bet;
+    las.push({nr,bez,kenn,stK,svK,m,f,bet,stFrei,pauschal,svFrei});
   });
 
-  var bruttoGes = brutto + zulagenGes;
-
-  var art = document.getElementById('an-art').value;
-  var isPKV = (document.getElementById('an-kk').value === 'PKV');
-  var kvz = isPKV ? 0 : parseDe(document.getElementById('an-kvz').value) / 100 / 2;
-  var kirche = parseFloat(document.getElementById('an-kirche').value);
-  var hatKinder = document.getElementById('an-pv-kinder').checked;
-  var stklasse = document.getElementById('an-stklasse').value;
-
-  var sv = { rv:0, av:0, kv:0, pv:0 };
-
-  if(art !== 'mini'){
-    var basisRvAv = Math.min(bruttoGes, jw.bbgRvAv);
-    var basisKvPv = Math.min(bruttoGes, jw.bbgKvPv);
-
-    if(art !== 'aktivrente'){
-      sv.rv = basisRvAv * SV.rv.an;
-      sv.av = basisRvAv * SV.av.an;
-    }
+  // SV
+  var sv={kv:0,rv:0,av:0,pv:0,kvAG:0,rvAG:0,avAG:0,pvAG:0};
+  var bKV=Math.min(brSV,jw.bbgKV),bRV=Math.min(brSV,jw.bbgRV);
+  if(art!=='mini'){
     if(!isPKV){
-      sv.kv = basisKvPv * (SV.kv.an + kvz);
-      sv.pv = basisKvPv * (SV.pv.an + (hatKinder ? 0 : SV.pvKeinKind));
+      var kvzAN=pDe(v('an-kvz'))/100;
+      sv.kv=bKV*(jw.kv+kvzAN/2);sv.kvAG=bKV*(jw.kv+kvzAN/2);
+      sv.pv=bKV*(jw.pv+(hatKinder?0:jw.pvK));sv.pvAG=bKV*jw.pv;
     }
-    // PKV: keine GKV-Beiträge; AG-Zuschuss wird separat als Netto-Abzug behandelt
-  }
-
-  var svGes = sv.rv + sv.av + sv.kv + sv.pv;
-
-  // PKV-Beitrag AN: steuerlich abzugsfähig als Vorsorgeaufwand (§ 10 Abs. 1 Nr. 3 EStG)
-  // Basisbeitrag (Basisleistungen = GKV-äquivalent) mindert das zvE bis zur Höchstgrenze.
-  // Vereinfachung: gesamter AN-PKV-Beitrag wird als Vorsorgeaufwand behandelt.
-  var pkvBeitragAN = isPKV ? parseDe(document.getElementById('an-pkv-beitrag').value) : 0;
-
-  var wkPausch = jw.wkPausch;
-  var zvE_mon = Math.max(0, bruttoGes - svGes - wkPausch - pkvBeitragAN);
-  var zvE_jahr = zvE_mon * 12;
-
-  var steuern = { lst:0, solz:0, kist:0 };
-  if(art !== 'mini'){
-    var res = lohnsteuerSchaetzen(zvE_jahr, stklasse, kirche, jw);
-    steuern.lst  = res.lst  / 12;
-    steuern.solz = res.solz / 12;
-    steuern.kist = res.kist / 12;
-  }
-
-  var steuernGes = steuern.lst + steuern.solz + steuern.kist;
-
-  var abzuegeItems = [];
-  var abzuegeGes = 0;
-  document.querySelectorAll('#abzuege-list .abzug-row').forEach(function(row){
-    var inps = row.querySelectorAll('input');
-    var bez = inps[0].value || 'Abzug';
-    var betrag = parseDe(inps[1].value);
-    if(betrag){
-      abzuegeItems.push({bez:bez, betrag:betrag});
-      abzuegeGes += betrag;
+    if(art!=='aktivrente'){
+      sv.rv=bRV*jw.rv;sv.av=bRV*jw.av;
+      sv.rvAG=bRV*jw.rv;sv.avAG=bRV*jw.av;
     }
+  }
+  var svGes=sv.kv+sv.rv+sv.av+sv.pv;
+  var svAG=sv.kvAG+sv.rvAG+sv.avAG+sv.pvAG;
+
+  // Lohnsteuer
+  var pkvB=isPKV?pDe(v('an-pkv-b')):0;
+  var zvEm=Math.max(0,brSt-svGes-jw.wk-pkvB),zvEj=zvEm*12;
+  var lst=0,solz=0,kist=0;
+  if(art!=='mini'){
+    var lsJ;
+    if(sk===3)lsJ=jw.lst(zvEj/2)*2;
+    else if(sk===5)lsJ=Math.max(0,zvEj*0.33);
+    else if(sk===6)lsJ=Math.max(0,zvEj*0.42);
+    else{lsJ=jw.lst(zvEj);if(sk===2)lsJ=Math.max(0,jw.lst(Math.max(0,zvEj-jw.entlII)));}
+    lst=lsJ/12;
+    if(lsJ>jw.solzF)solz=Math.min(lsJ*0.055,(lsJ-jw.solzF)*0.119)/12;
+    kist=lst*kirche;
+  }
+  var stGes=lst+solz+kist;
+
+  // Netto
+  var naAb=[],naBez=[];var abGes=0,bezGes=0;
+  document.querySelectorAll('#na-body tr').forEach(r=>{
+    var ins=r.querySelectorAll('input'),sels=r.querySelectorAll('select');
+    if(!ins[3])return;
+    var nr=ins[0].value,bez=ins[1].value,art2=sels[0]?sels[0].value:'abzug',bet=pDe(ins[3].value);
+    if(!bet&&!bez)return;
+    if(art2==='abzug'){naAb.push({nr,bez,bet});abGes+=bet;}else{naBez.push({nr,bez,bet});bezGes+=bet;}
   });
+  var pkvZ=isPKV?pDe(v('an-pkv-z')):0;
+  var netto=brGes-svGes-stGes-abGes-pkvZ+bezGes;
 
-  var pkvZuschuss = isPKV ? parseDe(document.getElementById('an-pkv-zuschuss').value) : 0;
-  var netto = bruttoGes - svGes - steuernGes - abzuegeGes - pkvZuschuss;
-
-  document.getElementById('calc-preview').innerHTML =
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">' +
-    row('Brutto gesamt', fmtEur(bruttoGes)+' €') +
-    row('SV-Beiträge AN', '− '+fmtEur(svGes)+' €') +
-    (isPKV && pkvBeitragAN > 0 ? row('PKV-Beitrag AN (Vorsorgeaufwand)', '− '+fmtEur(pkvBeitragAN)+' €') : '') +
-    row('Lohnsteuer', '− '+fmtEur(steuern.lst)+' €') +
-    row('Solidaritätszuschlag', '− '+fmtEur(steuern.solz)+' €') +
-    (steuern.kist > 0 ? row('Kirchensteuer', '− '+fmtEur(steuern.kist)+' €') : '') +
-    (abzuegeGes > 0 ? row('Sonstige Abzüge', '− '+fmtEur(abzuegeGes)+' €') : '') +
-    (pkvZuschuss > 0 ? row('AG-Zuschuss PKV', '− '+fmtEur(pkvZuschuss)+' €') : '') +
-    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--text-muted);margin-top:4px;">Rechtsgrundlage</div>' +
-    '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;color:var(--accent);text-align:right;margin-top:4px;">Werte '+jahr+'</div>' +
-    '</div>' +
-    '<div style="margin-top:16px;padding:14px;background:var(--accent-dim);border:1px solid var(--accent);border-left:3px solid var(--accent);display:flex;justify-content:space-between;align-items:center;">' +
-    '<span style="font-family:\'IBM Plex Mono\',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);">Netto-Auszahlung</span>' +
-    '<span style="font-family:\'Playfair Display\',serif;font-size:26px;color:var(--accent);">'+fmtEur(netto)+' €</span>' +
-    '</div>';
-
-  return {
-    brutto, zulagenGes, zulagenItems, bruttoGes,
-    sv, svGes, steuern, steuernGes,
-    abzuegeItems, abzuegeGes, pkvZuschuss, pkvBeitragAN, isPKV, netto,
-    kvz, hatKinder, stklasse, jahr, jw, SV
-  };
+  return{las,brGes,brSt,brSV,brL,brS,brP,brF,sv,svGes,svAG,bKV,bRV,lst,solz,kist,stGes,naAb,naBez,abGes,bezGes,pkvZ,pkvB,isPKV,netto,jw,hatKinder,kirche,sk};
 }
 
-function row(label, val){
-  return '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:11px;color:var(--text-muted);">'+label+'</div>' +
-         '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:12px;text-align:right;color:var(--text);">'+val+'</div>';
-}
-
-/* ── Vorschau generieren ─────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   DATEV-VORSCHAU
+   ══════════════════════════════════════════════════════════════ */
 function generatePreview(){
-  var c = berechne();
+  var c=berechne();
+  var agName=v('ag-name'),agStr=v('ag-strasse'),agOrt=v('ag-ort'),agStNr=v('ag-steuernr'),agBetNr=v('ag-betriebsnr'),agBlatt=v('ag-blatt')||'1';
+  var anV=v('an-vname'),anN=v('an-nname'),pnr=v('an-persnr'),kk=v('an-kk');
+  var stklTxt=['','I','II','III','IV','V','VI'][parseInt(v('an-stklasse'))];
+  var kvzGes=c.isPKV?0:pDe(v('an-kvz'))*2;
+  var monatTxt=getMonatTxt();
+  var heute=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'});
 
-  var art = document.getElementById('an-art').value;
-  var agName   = document.getElementById('ag-name').value || 'Arbeitgeber';
-  var agStr    = document.getElementById('ag-strasse').value;
-  var agOrt    = document.getElementById('ag-ort').value;
-  var agStNr   = document.getElementById('ag-steuernr').value;
-  var agBetNr  = document.getElementById('ag-betriebsnr').value;
-  var agIBAN   = document.getElementById('ag-iban').value;
-
-  var anVor    = document.getElementById('an-vorname').value || 'Arbeitnehmer';
-  var anNach   = document.getElementById('an-nachname').value || '';
-  var anStr    = document.getElementById('an-strasse').value;
-  var anOrt    = document.getElementById('an-ort').value;
-  var anGeb    = document.getElementById('an-geburtstag').value;
-  var anStId   = document.getElementById('an-steuerid').value;
-  var anSVNr   = document.getElementById('an-svnr').value;
-  var anKK     = document.getElementById('an-kk').value;
-  var anKuerz  = document.getElementById('an-kuerzel').value;
-  var anArt    = document.getElementById('an-art');
-  var artTxt   = anArt.options[anArt.selectedIndex].text;
-  var entgrp   = document.getElementById('entgeltgruppe').value;
-
-  var monatVal = document.getElementById('monat').value;
-  var monatTxt = '';
-  if(monatVal){
-    var d = new Date(monatVal+'-01');
-    monatTxt = d.toLocaleDateString('de-DE',{month:'long',year:'numeric'});
-  }
-
-  var html = '';
-
-  // Header
-  html += '<div class="doc-header">';
-  html += '<div><div class="doc-logo">'+escH(agName)+'</div>';
-  if(agStr) html += '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:11px;color:var(--text-muted);margin-top:4px;">'+escH(agStr)+'</div>';
-  if(agOrt) html += '<div style="font-family:\'IBM Plex Mono\',monospace;font-size:11px;color:var(--text-muted);">'+escH(agOrt)+'</div>';
-  html += '</div>';
-  html += '<div class="doc-meta">';
-  html += 'Lohnabrechnung<br>';
-  html += '<strong style="color:var(--text)">'+monatTxt+'</strong><br>';
-  if(agStNr) html += 'StNr: '+escH(agStNr)+'<br>';
-  if(agBetNr) html += 'BetriebsNr: '+escH(agBetNr);
-  html += '</div></div>';
-
-  // AN-Info
-  html += '<h2>'+escH(anVor)+' '+escH(anNach)+'</h2>';
-  html += '<div class="doc-period">';
-  var infoParts = [];
-  if(anStr) infoParts.push(escH(anStr));
-  if(anOrt) infoParts.push(escH(anOrt));
-  if(anGeb) infoParts.push('Geb. '+escH(anGeb));
-  if(anKuerz) infoParts.push('Kürzel: '+escH(anKuerz));
-  html += infoParts.join(' · ')+'</div>';
-
-  // Tabelle
-  html += '<table>';
-
-  // — Stammdaten
-  html += '<tr class="section-header"><td colspan="2">Stammdaten</td></tr>';
-  if(anStId) html += tdRow('Steuer-Identifikationsnummer', escH(anStId));
-  if(anSVNr) html += tdRow('Sozialversicherungsnummer', escH(anSVNr));
-  if(anKK)   html += tdRow('Krankenkasse', escH(anKK));
-  html += tdRow('Steuerklasse', document.getElementById('an-stklasse').value);
-  html += tdRow('Beschäftigungsart', escH(artTxt));
-  if(entgrp) html += tdRow('Entgeltgruppe', escH(entgrp));
-
-  // — Brutto
-  html += '<tr class="section-header"><td colspan="2">Brutto-Entgelt</td></tr>';
-  html += tdRow('Grundgehalt', fmtEur(c.brutto)+' €');
-  c.zulagenItems.forEach(function(z){
-    html += tdRow(escH(z.bez), fmtEur(z.betrag)+' €');
+  // Hinweise sammeln
+  var hinweise=[];
+  document.querySelectorAll('#hw-list>div').forEach(d=>{
+    var ins=d.querySelectorAll('input');if(ins[0]&&ins[0].value)hinweise.push({txt:ins[0].value,bet:ins[1]?ins[1].value:''});
   });
-  html += '<tr class="total-row"><td>Brutto gesamt</td><td>'+fmtEur(c.bruttoGes)+' €</td></tr>';
 
-  // — SV AN
-  if(art !== 'mini' && !c.isPKV){
-    html += '<tr class="section-header"><td colspan="2">Sozialversicherung (Arbeitnehmer-Anteil)</td></tr>';
-    if(art !== 'aktivrente'){
-      html += tdRow('Rentenversicherung (9,30 %)', '− '+fmtEur(c.sv.rv)+' €');
-      html += tdRow('Arbeitslosenversicherung (1,30 %)', '− '+fmtEur(c.sv.av)+' €');
-    }
-    var kvz = parseDe(document.getElementById('an-kvz').value);
-    html += tdRow('Krankenversicherung (7,30 % + '+fmtPct(kvz/2)+' %)', '− '+fmtEur(c.sv.kv)+' €');
-    var pvSatz = (c.jw.sv.pv.an * 100) + (c.hatKinder ? 0 : c.jw.sv.pvKeinKind * 100);
-    html += tdRow('Pflegeversicherung ('+fmtPct(pvSatz)+' %)', '− '+fmtEur(c.sv.pv)+' €');
-    html += '<tr class="total-row"><td>SV-Abzüge gesamt</td><td>− '+fmtEur(c.svGes)+' €</td></tr>';
-  } else if(c.isPKV){
-    html += '<tr class="section-header"><td colspan="2">Sozialversicherung (Arbeitnehmer-Anteil)</td></tr>';
-    if(art !== 'mini' && art !== 'aktivrente'){
-      html += tdRow('Rentenversicherung (9,30 %)', '− '+fmtEur(c.sv.rv)+' €');
-      html += tdRow('Arbeitslosenversicherung (1,30 %)', '− '+fmtEur(c.sv.av)+' €');
-    }
-    html += tdRow('Kranken-/Pflegeversicherung', 'PKV (privat versichert)');
-    if(c.pkvBeitragAN > 0) html += tdRow('PKV-Beitrag AN (Vorsorgeaufwand § 10 Abs. 1 Nr. 3 EStG)', '− '+fmtEur(c.pkvBeitragAN)+' €');
-    if(c.svGes > 0) html += '<tr class="total-row"><td>SV-Abzüge gesamt</td><td>− '+fmtEur(c.svGes)+' €</td></tr>';
-  } else if(art === 'aktivrente'){
-    html += '<tr class="section-header"><td colspan="2">Sozialversicherung</td></tr>';
-    html += tdRow('Aktiv-Rente (§ 3 Nr. 21 EStG) — keine RV/AV-Beitragspflicht', '');
-    html += tdRow('Krankenversicherung (AN)', '− '+fmtEur(c.sv.kv)+' €');
-    html += tdRow('Pflegeversicherung (AN)', '− '+fmtEur(c.sv.pv)+' €');
-    html += '<tr class="total-row"><td>SV-Abzüge gesamt</td><td>− '+fmtEur(c.svGes)+' €</td></tr>';
-  } else {
-    html += '<tr class="section-header"><td colspan="2">Sozialversicherung</td></tr>';
-    html += tdRow('Minijob (§ 8 SGB IV) — keine AN-SV-Beiträge', '—');
+  var h='';
+
+  // ── Dokumentkopf ─────────────────────────────────────────────
+  h+=`<div class="dv-top"><div class="left">Abrechnung der Brutto/Netto-Bez&uuml;ge &nbsp; <strong>f&uuml;r ${esc(monatTxt)}</strong></div>
+  <div class="right"><strong>HAA/HB &nbsp; ${esc(agBetNr||agStNr||'—')}/50000/${esc(agBlatt)}</strong><br>${esc(heute)} &nbsp; Blatt: ${esc(agBlatt)}</div></div>`;
+
+  // ── Kopffelder Zeile 1 ────────────────────────────────────────
+  h+=`<div class="dv-kopf">
+  <div class="dv-kopf-row">
+    <div style="flex:1.2"><span class="kl">Personal-Nr.</span>${esc(pnr)}</div>
+    <div style="flex:1"><span class="kl">Geb./Abt.</span></div>
+    <div style="flex:.7"><span class="kl">StKl</span>${esc(stklTxt)}</div>
+    <div style="flex:.7"><span class="kl">Faktor</span>${esc(v('an-faktor'))}</div>
+    <div style="flex:1.2"><span class="kl">Ki.Frbtr. j&auml;hrl.</span>${esc(v('an-kifj'))}</div>
+    <div style="flex:1"><span class="kl">Frbtr. mtl.</span>${esc(v('an-kifm'))}</div>
+    <div style="flex:.7"><span class="kl">DBA</span></div>
+    <div style="flex:.7"><span class="kl">Midijob</span></div>
+    <div style="flex:.5"><span class="kl">St.-Tg.</span></div>
+    <div style="flex:.8"><span class="kl">VJ Url.&uuml;b.</span>${esc(v('zt-vju'))}</div>
+    <div style="flex:.8"><span class="kl">Url.Anspr.</span>${esc(v('zt-ua'))}</div>
+    <div style="flex:.7" style="border-right:none"><span class="kl">Resturlaub</span></div>
+  </div>
+  <div class="dv-kopf-row" style="border-top:1px solid #666;">
+    <div style="flex:3"><span class="kl">SV-Nummer &amp; Krankenkasse</span>${esc(v('an-svnr'))} &nbsp; ${esc(kk)}</div>
+    <div style="flex:.7;text-align:center"><span class="kl">KK&nbsp;%</span>${c.isPKV?'PKV':fEur(7.3+kvzGes/2)}</div>
+    <div style="flex:.7;text-align:center"><span class="kl">PGRS</span>${c.isPKV?'':fEur(kvzGes)}</div>
+    <div style="flex:.7;text-align:center"><span class="kl">BGRS</span>${c.isPKV?'':'18,60'}</div>
+    <div style="flex:.5;text-align:center"><span class="kl">Um.</span>1</div>
+    <div style="flex:.5;text-align:center"><span class="kl">SV-Tg.</span>30</div>
+    <div style="flex:.7;text-align:center"><span class="kl">Anw.Tg.</span>${esc(v('zt-at'))}</div>
+    <div style="flex:.7;text-align:center"><span class="kl">Url.Tg.</span>${esc(v('zt-ut'))}</div>
+    <div style="flex:.7;text-align:center"><span class="kl">Krankh.Tg.</span>${esc(v('zt-kt'))}</div>
+    <div style="flex:.7;border-right:none;text-align:center"><span class="kl">Fehlz.Tg.</span>${esc(v('zt-ft'))}</div>
+  </div>
+  <div class="dv-kopf-row" style="border-top:1px solid #666;">
+    <div style="flex:1"><span class="kl">Eintritt</span>${esc(v('an-eintritt'))}</div>
+    <div style="flex:1"><span class="kl">Austritt</span></div>
+    <div style="flex:1;text-align:center"><span class="kl">Anw.Std.</span>${esc(v('zt-as'))}</div>
+    <div style="flex:1;text-align:center"><span class="kl">Url.Std.</span>${esc(v('zt-us'))}</div>
+    <div style="flex:1;text-align:center"><span class="kl">Krankh.Std.</span>${esc(v('zt-ks'))}</div>
+    <div style="flex:1;text-align:center"><span class="kl">Fehlz.Std.</span>${esc(v('zt-fs'))}</div>
+    <div style="flex:1;text-align:center"><span class="kl">Zeitlohn Std.</span>${esc(v('zt-zs'))}</div>
+    <div style="flex:1;text-align:center"><span class="kl">&Uuml;berstd.</span></div>
+    <div style="flex:1;text-align:center"><span class="kl">Bez. Std.</span>${esc(v('zt-bs'))}</div>
+    <div style="flex:1.5"><span class="kl">Steuer-ID</span>${esc(v('an-steuerid'))}</div>
+    <div style="flex:.5;border-right:none"><span class="kl">MFB</span></div>
+  </div>
+  </div>`;
+
+  // AG-Adresse + Name
+  h+=`<div style="font-size:7.5pt;margin-bottom:2px;">${esc(agName)} &nbsp; ${esc(agStr)} &nbsp; ${esc(agOrt)}</div>`;
+  h+=`<div style="font-size:7.5pt;margin-bottom:4px;"><strong>${esc(anV)} ${esc(anN)}</strong> &nbsp;&nbsp; *Pers.-Nr. ${esc(pnr)}*`;
+  if(v('an-geb'))h+=` &nbsp; Geb.: ${esc(v('an-geb'))}`;
+  h+=`</div>`;
+
+  // Hinweise
+  if(hinweise.length){
+    h+=`<div class="dv-hinweis"><strong>Hinweise zur Abrechnung</strong><table style="width:100%"><tbody>`;
+    hinweise.forEach(hw=>h+=`<tr><td>${esc(hw.txt)}</td><td style="text-align:right;">${esc(hw.bet)}</td></tr>`);
+    h+=`</tbody></table></div>`;
   }
 
-  // — Steuern (alle außer Minijob)
-  if(art !== 'mini'){
-    html += '<tr class="section-header"><td colspan="2">Steuern</td></tr>';
-    html += tdRow('Lohnsteuer (StKl '+document.getElementById('an-stklasse').value+')', '− '+fmtEur(c.steuern.lst)+' €');
-    html += tdRow('Solidaritätszuschlag', '− '+fmtEur(c.steuern.solz)+' €');
-    if(c.steuern.kist > 0) html += tdRow('Kirchensteuer', '− '+fmtEur(c.steuern.kist)+' €');
-    html += '<tr class="total-row"><td>Steuerabzüge gesamt</td><td>− '+fmtEur(c.steuernGes)+' €</td></tr>';
-  }
+  // ── Brutto-Bezüge ─────────────────────────────────────────────
+  h+=`<div class="dv-h">Brutto-Bez&uuml;ge</div>
+  <table class="dv-tbl">
+    <thead><tr>
+      <th style="width:50px;">Lohnart</th>
+      <th style="text-align:left;min-width:160px;">Bezeichnung</th>
+      <th style="width:45px;">Einheit</th>
+      <th style="width:55px;">Menge</th>
+      <th style="width:55px;">Faktor</th>
+      <th style="width:45px;">Proz.</th>
+      <th style="width:25px;">St</th>
+      <th style="width:20px;">SV</th>
+      <th style="width:20px;">GB</th>
+      <th style="width:75px;">Betrag</th>
+    </tr></thead>
+    <tbody>`;
+  c.las.forEach(la=>{
+    h+=`<tr><td class="c">${esc(la.nr)}</td><td>${esc(la.bez)}</td><td></td>
+    <td class="r">${la.m?esc(la.m):''}</td><td class="r">${la.f?esc(la.f):''}</td><td></td>
+    <td class="c">${esc(la.stK)}</td><td class="c">${esc(la.svK)}</td><td class="c">J</td>
+    <td class="r">${fEur(la.bet)}</td></tr>`;
+  });
+  h+=`</tbody>
+    <tfoot><tr class="tot"><td colspan="9" style="text-align:right;">Gesamt-Brutto</td><td class="r"><strong>${fEur(c.brGes)}</strong></td></tr></tfoot>
+  </table>`;
 
-  // — Sonstige Abzüge
-  if(c.abzuegeItems.length){
-    html += '<tr class="section-header"><td colspan="2">Sonstige Abzüge</td></tr>';
-    c.abzuegeItems.forEach(function(a){
-      html += tdRow(escH(a.bez), '− '+fmtEur(a.betrag)+' €');
-    });
-  }
-  if(c.pkvZuschuss > 0){
-    if(!c.abzuegeItems.length) html += '<tr class="section-header"><td colspan="2">Sonstige Abzüge</td></tr>';
-    html += tdRow('AG-Zuschuss PKV', '− '+fmtEur(c.pkvZuschuss)+' €');
-  }
+  // ── Steuer/SV ─────────────────────────────────────────────────
+  h+=`<div class="dv-h">Steuer/Sozialversicherung</div>
+  <table class="dv-tbl">
+    <thead><tr><th style="width:20px;">St</th><th>Steuer-Brutto</th><th>Lohnsteuer</th><th>Kirchensteuer</th><th>Solidarit&auml;tszuschlag</th><th>Steuerrechtl. Abz&uuml;ge</th></tr></thead>
+    <tbody>
+      <tr><td class="c">L</td><td class="r">${fEur(c.brL||c.brSt)}</td><td class="r">${fEur(c.lst)}</td><td class="r">${c.kist>0?fEur(c.kist):','}</td><td class="r">${c.solz>0?fEur(c.solz):','}</td><td class="r">${fEur(c.stGes)}</td></tr>
+      ${c.brS>0?`<tr><td class="c">S</td><td class="r">${fEur(c.brS)}</td><td class="r">,</td><td class="r">,</td><td class="r">,</td><td class="r">—</td></tr>`:''}
+    </tbody>
+  </table>
+  <table class="dv-tbl" style="margin-bottom:4px;">
+    <thead><tr><th style="width:20px;">SV</th><th>KV-Brutto</th><th>RV-Brutto</th><th>AV-Brutto</th><th>PV-Brutto</th><th>KV-Beitrag</th><th>RV-Beitrag</th><th>AV-Beitrag</th><th>PV-Beitrag</th><th>SV-rechtl. Abz&uuml;ge</th></tr></thead>
+    <tbody>
+      <tr><td class="c">L</td>
+        <td class="r">${c.isPKV?'PKV':fEur(c.bKV)}</td>
+        <td class="r">${fEur(c.bRV)}</td>
+        <td class="r">${fEur(c.bRV)}</td>
+        <td class="r">${c.isPKV?'PKV':fEur(c.bKV)}</td>
+        <td class="r">${c.isPKV?'PKV':fEur(c.sv.kv)}</td>
+        <td class="r">${fEur(c.sv.rv)}</td>
+        <td class="r">${fEur(c.sv.av)}</td>
+        <td class="r">${c.isPKV?'PKV':fEur(c.sv.pv)}${!c.hatKinder&&!c.isPKV?' Z':''}</td>
+        <td class="r">${fEur(c.svGes)}</td>
+      </tr>
+    </tbody>
+  </table>`;
 
-  // — Netto
-  html += '<tr class="net-row"><td>Netto-Auszahlung</td><td>'+fmtEur(c.netto)+' €</td></tr>';
+  // ── Verdienstbescheinigung + Netto ────────────────────────────
+  var vwlBet=c.las.filter(l=>l.nr==='080').reduce((s,l)=>s+l.bet,0);
+  var stFreiBet=c.las.filter(l=>l.stFrei).reduce((s,l)=>s+l.bet,0);
+  var pauschalBet=c.las.filter(l=>l.pauschal).reduce((s,l)=>s+l.bet,0);
+  h+=`<div class="dv-bot">
+    <div class="dv-verdi">
+      <div class="dv-h" style="margin-top:0;">Verdienstbescheinigung</div>
+      <table>
+        <tr><td>Gesamt-Brutto</td><td class="r b">${fEur(c.brGes)}</td><td style="width:60px;font-size:6.5pt;color:#555;">SV-Brutto</td><td class="r" style="font-size:7pt;">${fEur(c.brSV)}</td></tr>
+        <tr><td>Steuer-Brutto</td><td class="r">${fEur(c.brSt)}</td><td style="font-size:6.5pt;color:#555;">KV-Beitrag</td><td class="r" style="font-size:7pt;">${c.isPKV?'PKV':fEur(c.sv.kv+c.sv.kvAG)}</td></tr>
+        <tr><td>Lohnsteuer</td><td class="r">${fEur(c.lst)}</td><td style="font-size:6.5pt;color:#555;">RV-Beitrag</td><td class="r" style="font-size:7pt;">${fEur(c.sv.rv+c.sv.rvAG)}</td></tr>
+        <tr><td>Kirchensteuer</td><td class="r">${c.kist>0?fEur(c.kist):','}</td><td style="font-size:6.5pt;color:#555;">AV-Beitrag</td><td class="r" style="font-size:7pt;">${fEur(c.sv.av+c.sv.avAG)}</td></tr>
+        <tr><td>Solidarit&auml;tszuschlag</td><td class="r">${c.solz>0?fEur(c.solz):','}</td><td style="font-size:6.5pt;color:#555;">PV-Beitrag</td><td class="r" style="font-size:7pt;">${c.isPKV?'PKV':fEur(c.sv.pv+c.sv.pvAG)}</td></tr>
+        <tr><td>Steuerfreie Bez&uuml;ge</td><td class="r">${stFreiBet>0?fEur(stFreiBet):','}</td><td style="font-size:6.5pt;color:#555;">VWL gesamt</td><td class="r" style="font-size:7pt;">${vwlBet>0?fEur(vwlBet):','}</td></tr>
+        <tr><td>P.verst. Zuk.sich.</td><td class="r">${pauschalBet>0?fEur(pauschalBet):','}</td><td style="font-size:6.5pt;color:#555;">Kug-Auszahlung</td><td class="r" style="font-size:7pt;">,</td></tr>
+        <tr><td>Pf&auml;ndung Rest</td><td class="r">,</td><td></td><td></td></tr>
+        <tr><td>Darlehen Rest</td><td class="r">,</td><td></td><td></td></tr>
+      </table>
+    </div>
+    <div class="dv-netto">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="dv-h" style="margin-top:0;">Netto-Bez&uuml;ge/Netto-Abz&uuml;ge</div>
+        <div style="font-weight:700;font-size:8.5pt;">${fEur(c.netto)}</div>
+      </div>
+      <table><thead><tr>
+        <th style="text-align:left;font-weight:400;font-size:6.5pt;">Nr.</th>
+        <th style="text-align:left;font-weight:400;font-size:6.5pt;">Bezeichnung</th>
+        <th style="text-align:right;font-weight:400;font-size:6.5pt;">Betrag</th>
+      </tr></thead><tbody>`;
+  c.naAb.forEach(a=>h+=`<tr><td>${esc(a.nr)}</td><td>${esc(a.bez)}</td><td class="r">${fEur(a.bet)}-</td></tr>`);
+  c.naBez.forEach(a=>h+=`<tr><td>${esc(a.nr)}</td><td>${esc(a.bez)}</td><td class="r">${fEur(a.bet)}</td></tr>`);
+  if(c.pkvZ>0)h+=`<tr><td></td><td>AG-Zuschuss PKV</td><td class="r">${fEur(c.pkvZ)}-</td></tr>`;
+  h+=`</tbody></table>
+      <div style="margin-top:4px;font-size:6.5pt;color:#555;">Netto-Verdienst</div>
+      <div style="font-size:9pt;font-weight:700;text-align:right;">${fEur(c.netto)}</div>
+    </div>
+  </div>`;
 
-  html += '</table>';
+  // ── Fußzeile ──────────────────────────────────────────────────
+  h+=`<div class="dv-foot">
+    <div>
+      <span style="font-size:6.5pt;color:#555;">Bank</span> <strong>${esc(v('an-bank'))}</strong><br>
+      <span style="font-size:6.5pt;color:#555;">Konto</span> ${esc(v('an-iban'))}
+    </div>
+    <div style="text-align:center;"><span style="font-size:6.5pt;color:#555;display:block;">SV-AG-Anteil</span>${fEur(c.svAG)}</div>
+    <div style="text-align:center;"><span style="font-size:6.5pt;color:#555;display:block;">Zus. AG-Kosten</span>,</div>
+    <div class="ausz"><span style="font-size:6.5pt;color:#555;display:block;">Auszahlungsbetrag</span>${fEur(c.netto)}</div>
+  </div>
+  <div style="text-align:center;font-size:6.5pt;margin-top:4px;color:#555;">Form.-Nr. LOGN17 &nbsp;–&nbsp; Dies ist eine Entgeltbescheinigung nach § 108 Abs. 3 Satz 1 der Gewerbeordnung –</div>`;
 
-  // Zahlungsinfos
-  if(agIBAN){
-    html += '<div class="doc-footer-note">';
-    html += 'Überweisung auf Ihr Konto: <strong>'+escH(agIBAN)+'</strong><br>';
-    html += 'Verwendungszweck: Gehalt '+monatTxt+' – '+escH(anVor)+' '+escH(anNach);
-    html += '</div>';
-  }
-
-  // Unterschriften
-  html += '<div class="signatures">';
-  html += '<div class="sig-line">Ort, Datum &amp; Unterschrift Arbeitgeber</div>';
-  html += '<div class="sig-line">Empfangsbestätigung Arbeitnehmer</div>';
-  html += '</div>';
-
-  // Hinweis
-  html += '<div class="doc-footer-note" style="margin-top:20px;">';
-  html += 'Diese Abrechnung wurde maschinell erstellt. Alle Angaben ohne Gewähr. ';
-  html += 'Lohnsteuer- und SV-Beträge sind Näherungswerte (§ 32a EStG, SGB-Beitragssätze '+c.jahr+'). ';
-  html += 'Massgebend ist die individuelle Berechnung durch einen Steuerberater oder die Finanzbehörde.';
-  html += '</div>';
-
-  document.getElementById('preview-doc').innerHTML = html;
-  document.getElementById('preview-wrap').style.display = 'block';
+  document.getElementById('dv-doc').innerHTML=h;
+  document.getElementById('preview-wrap').style.display='block';
+  document.getElementById('an-ausz').value=fEur(c.netto)+' €';
   document.getElementById('preview-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function tdRow(label, val){
-  return '<tr><td>'+label+'</td><td>'+val+'</td></tr>';
-}
-function escH(s){
-  return String(s)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
-
-/* ── HTML-Export ─────────────────────────────────────────────── */
-function exportHTML(){
-  var content = document.getElementById('preview-doc').innerHTML;
-  var style = document.querySelector('style').outerHTML;
-  var full = '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'+style+
-    '<style>body{background:#fff;color:#111;font-family:\'IBM Plex Sans\',sans-serif;}' +
-    '.preview-doc{max-width:800px;margin:40px auto;padding:40px;border:1px solid #ddd;}' +
-    '.doc-header{display:flex;justify-content:space-between;margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid #2e7a50;}' +
-    '.doc-logo{font-size:20px;font-weight:600;color:#2e7a50;}' +
-    '.doc-meta{font-size:11px;text-align:right;color:#666;}' +
-    'table{width:100%;border-collapse:collapse;}' +
-    'td{padding:8px 0;border-bottom:1px solid #eee;font-size:13px;}' +
-    'td:last-child{text-align:right;}' +
-    '.section-header td{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#2e7a50;padding-top:20px;}' +
-    '.total-row td{font-weight:600;border-bottom:2px solid #2e7a50;}' +
-    '.net-row td{font-size:20px;color:#2e7a50;font-weight:700;border-bottom:none;}' +
-    '.signatures{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;}' +
-    '.sig-line{border-top:1px solid #999;padding-top:8px;font-size:10px;color:#666;}' +
-    '.doc-footer-note{font-size:10px;color:#999;margin-top:24px;padding-top:12px;border-top:1px solid #eee;}' +
-    '</style></head><body><div class="preview-doc">'+content+'</div></body></html>';
-  var blob = new Blob([full],{type:'text/html'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'Lohnabrechnung.html';
+/* ══════════════════════════════════════════════════════════════
+   DATEV LODAS CSV EXPORT
+   ══════════════════════════════════════════════════════════════ */
+function exportLodas(){
+  var c=berechne();
+  var per=v('monat').replace('-','');
+  var pnr=v('an-persnr')||'0001';
+  var betNr=v('ag-betriebsnr')||'';
+  var lines=[];
+  lines.push('DTVF;700;11;Lohnbuchungsdaten;0;'+new Date().toISOString().slice(0,10).replace(/-/g,'')+';0;1;1;;;;;0;');
+  lines.push('"Betriebsnummer";"'+betNr+'";"Abrechnungsperiode";"'+per+'"');
+  lines.push('"Personalnummer";"Lohnart";"Betrag";"Menge";"Faktor";"Kennzeichen"');
+  c.las.forEach(la=>lines.push('"'+pnr+'";"'+la.nr+'";"'+la.bet.toFixed(2).replace('.',',')+'";"'+la.m+'";"'+la.f+'";"'+la.kenn+'"'));
+  lines.push('');
+  lines.push('"# Berechnete Werte"');
+  lines.push('"'+pnr+'";"Lohnsteuer";"'+c.lst.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"SolZ";"'+c.solz.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"Kirchensteuer";"'+c.kist.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"KV-AN";"'+c.sv.kv.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"RV-AN";"'+c.sv.rv.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"AV-AN";"'+c.sv.av.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"PV-AN";"'+c.sv.pv.toFixed(2).replace('.',',')+'"');
+  lines.push('"'+pnr+'";"Netto";"'+c.netto.toFixed(2).replace('.',',')+'"');
+  var blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='LODAS_'+per+'_'+(v('an-nname')||'AN').replace(/\s/g,'_')+'.csv';
   a.click();
 }
 
-/* ── Stammdaten Speichern/Laden ──────────────────────────────── */
-var STAMMDATEN_FELDER = [
-  'ag-name','ag-strasse','ag-ort','ag-steuernr','ag-betriebsnr',
-  'an-vorname','an-nachname','an-strasse','an-ort','an-geburtstag',
-  'an-steuerid','an-svnr','an-kk','an-kvz','an-kuerzel','ag-iban',
-  'an-stklasse','an-kirche','an-art','an-pv-kinder','entgeltgruppe'
-];
+/* ══════════════════════════════════════════════════════════════
+   STAMMDATEN
+   ══════════════════════════════════════════════════════════════ */
+var SD=['ag-name','ag-strasse','ag-ort','ag-steuernr','ag-betriebsnr','ag-blatt','ag-iban',
+  'an-vname','an-nname','an-persnr','an-str','an-ort','an-geb','an-eintritt',
+  'an-stklasse','an-faktor','an-steuerid','an-kifj','an-kifm',
+  'an-kk','an-kvz','an-kirche','an-art','an-kinder','an-bank','an-iban',
+  'an-svnr','an-pkv-b','an-pkv-z',
+  'zt-at','zt-ut','zt-kt','zt-ft','zt-vju','zt-ua',
+  'zt-as','zt-us','zt-ks','zt-fs','zt-zs','zt-bs'];
 
 function stammdatenSpeichern(){
-  var data = {};
-  STAMMDATEN_FELDER.forEach(function(id){
-    var el = document.getElementById(id);
-    if(!el) return;
-    data[id] = el.type === 'checkbox' ? el.checked : el.value;
-  });
-  var json = JSON.stringify(data, null, 2);
-  var blob = new Blob([json], {type:'application/json'});
-  var a = document.createElement('a');
-  var name = (document.getElementById('an-nachname').value || 'Stammdaten').replace(/\s+/g,'_');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'Stammdaten_' + name + '.json';
+  var d={};
+  SD.forEach(id=>{var el=document.getElementById(id);if(!el)return;d[id]=el.type==='checkbox'?el.checked:el.value;});
+  var blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Stammdaten_'+(v('an-nname')||'AN').replace(/\s/g,'_')+'.json';
   a.click();
 }
-
-function stammdatenImportieren(){
-  document.getElementById('stammdaten-import-file').click();
-}
-
-function stammdatenLaden(event){
-  var file = event.target.files[0];
-  if(!file) return;
-  var reader = new FileReader();
-  reader.onload = function(e){
-    try {
-      var data = JSON.parse(e.target.result);
-      STAMMDATEN_FELDER.forEach(function(id){
-        var el = document.getElementById(id);
-        if(!el || !(id in data)) return;
-        if(el.type === 'checkbox'){ el.checked = !!data[id]; }
-        else { el.value = data[id]; }
-      });
-      berechne();
-    } catch(err){
-      alert('Fehler beim Laden der Stammdaten: ' + err.message);
-    }
-    event.target.value = '';
+function stammdatenLaden(evt){
+  var file=evt.target.files[0];if(!file)return;
+  var r=new FileReader();
+  r.onload=function(e){
+    try{
+      var d=JSON.parse(e.target.result);
+      SD.forEach(id=>{var el=document.getElementById(id);if(!el||!(id in d))return;
+        el.type==='checkbox'?el.checked=!!d[id]:el.value=d[id];});
+      kkGewaehlt();updateSums();
+    }catch(err){alert('Fehler: '+err.message);}
+    evt.target.value='';
   };
-  reader.readAsText(file);
+  r.readAsText(file);
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-  // Monat auf aktuellen Monat (2025/2026) setzen
-  var now = new Date();
-  var y = now.getFullYear();
-  if(y < 2025) y = 2025;
-  if(y > 2026) y = 2026;
-  var m = String(now.getMonth()+1).padStart(2,'0');
-  document.getElementById('monat').value = y+'-'+m;
-
-  kkGewaehlt(); // Kassenwert + Hint initialisieren
-  berechne();
-  document.getElementById('an-stklasse').addEventListener('change', berechne);
-  document.getElementById('an-kirche').addEventListener('change', berechne);
-  document.getElementById('an-art').addEventListener('change', berechne);
-  document.getElementById('monat').addEventListener('change', function(){
-    kkGewaehlt(); // Beitragssatz ggf. für neues Jahr aktualisieren
-    berechne();
+/* ── Init ───────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded',function(){
+  var now=new Date(),y=Math.min(2026,Math.max(2025,now.getFullYear()));
+  document.getElementById('monat').value=y+'-'+String(now.getMonth()+1).padStart(2,'0');
+  kkGewaehlt();
+  addLA('001','Gehalt','LL');
+  document.querySelectorAll('#la-body tr input')[5].value='4.000,00';
+  updateSums();
+  ['an-stklasse','an-kirche','an-art','an-kinder'].forEach(id=>{
+    var el=document.getElementById(id);
+    if(el)el.addEventListener('change',updateSums);
   });
+  document.getElementById('monat').addEventListener('change',monatGeaendert);
 });
 </script>
 </body>
