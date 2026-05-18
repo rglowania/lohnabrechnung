@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lohnabrechnung</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230c1410'/%3E%3Ctext y='.9em' font-size='82' font-family='serif' fill='%235d9e7a' x='10'%3Eg%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230c1410'/><text x='16' y='23' font-family='Georgia,serif' font-size='22' font-weight='700' fill='%235d9e7a' text-anchor='middle'>g</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -77,6 +77,60 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 .la-tbl .r input{text-align:right;}
 .la-sum-row td{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);padding:8px 5px;border-top:2px solid var(--accent);}
 
+/* ── Mobile-Optimierung ─────────────────────────────────────── */
+@media(max-width:680px){
+  body{padding:20px 10px 60px;}
+  .container{max-width:100%;}
+  .card{padding:18px 14px;margin-bottom:12px;}
+  .toolbar{gap:6px;}
+  .quick-btns{gap:4px;}
+  .btn-sm{padding:5px 8px;font-size:9px;letter-spacing:0.5px;}
+  .btn-sec{padding:7px 12px;font-size:9px;}
+  h1{font-size:24px;}
+  header{margin-bottom:18px!important;padding-top:36px;}
+  .theme-toggle{top:8px;right:8px;}
+
+  /* Lohnarten/Netto-Tabelle: Cards statt Tabelle */
+  .la-tbl,.la-tbl thead,.la-tbl tbody,.la-tbl tfoot{display:block;width:100%;}
+  .la-tbl thead{display:none;}
+  .la-tbl tr{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;padding:10px;border:1px solid var(--border);background:var(--surface2);margin-bottom:8px;}
+  .la-tbl td{display:block;padding:0;border:none;}
+  .la-tbl td input,.la-tbl td select{width:100%;font-size:12px;}
+  /* Zellen-Beschriftungen vor jedem Input */
+  .la-tbl td:nth-child(1)::before{content:'Lohnart';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(2){grid-column:span 2;}
+  .la-tbl td:nth-child(2)::before{content:'Bezeichnung';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(3){grid-column:span 3;}
+  .la-tbl td:nth-child(3)::before{content:'St/SV-Kennzeichen';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(4)::before{content:'Menge';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(5)::before{content:'Faktor';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(6)::before{content:'Betrag (€)';display:block;font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;}
+  .la-tbl td:nth-child(7){grid-column:span 3;text-align:right;}
+  .la-tbl td:nth-child(7)::before{display:none;}
+  .la-tbl td:nth-child(7) button{width:auto;padding:6px 14px;}
+
+  /* Netto-Tabelle hat 5 Spalten */
+  #na-body td:nth-child(2){grid-column:span 2;}
+  #na-body td:nth-child(3){grid-column:span 3;}
+  #na-body td:nth-child(3)::before{content:'Art';}
+  #na-body td:nth-child(4){grid-column:span 2;}
+  #na-body td:nth-child(4)::before{content:'Betrag (€)';}
+  #na-body td:nth-child(5){grid-column:span 1;text-align:right;}
+
+  /* Summen-Zeile */
+  .la-sum-row{display:flex!important;justify-content:space-between;align-items:center;background:var(--accent-dim);border:1px solid var(--accent);padding:10px;}
+  .la-sum-row td{display:inline;padding:0;border:none;}
+  .la-sum-row td::before{display:none!important;}
+  .la-sum-row td:first-child{font-size:10px;}
+
+  /* Hinweise-Block: kompakter */
+  #hw-list>div{grid-template-columns:1fr auto!important;}
+  #hw-list>div input:nth-child(2){grid-column:1;}
+
+  /* PKV-Zeile: 1-spaltig */
+  #pkv-wrap.g2{grid-template-columns:1fr;}
+}
+
 /* Druckvorschau */
 #preview-wrap{display:none;margin-top:20px;}
 .dv{background:#fff;color:#111;font-family:'Courier New',monospace;font-size:8.5pt;padding:12mm 10mm;border:1px solid var(--border);line-height:1.3;}
@@ -132,6 +186,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 <div class="container">
 <header style="text-align:center;margin-bottom:28px;" class="no-print">
   <h1><span>Lohn</span>abrechnung</h1>
+  <div style="margin-top:8px;"><a href="https://rglowania.github.io/gtools/" style="display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);padding:3px 10px;text-decoration:none;transition:all .2s;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--text-muted)';this.style.borderColor='var(--border)'">Part of gTools ↗</a></div>
 </header>
 
 <!-- STAMMDATEN TOOLBAR -->
@@ -145,15 +200,15 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 <div class="card no-print">
   <div class="card-title">Arbeitgeber</div>
   <div class="g4 mb">
-    <div class="field"><label><span class="lbl">Unternehmensname</span><input type="text" id="ag-name" placeholder="Meier & Kröhnke PartG mbB"></label></div>
-    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="ag-strasse" placeholder="Semmelweisstraße 19"></label></div>
-    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="ag-ort" placeholder="79576 Weil am Rhein"></label></div>
+    <div class="field"><label><span class="lbl">Unternehmensname</span><input type="text" id="ag-name" placeholder="Unternehmensname"></label></div>
+    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="ag-strasse" placeholder="Straße & Hausnummer"></label></div>
+    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="ag-ort" placeholder="PLZ & Ort"></label></div>
     <div class="field"><label><span class="lbl">Abrechnungsmonat</span><input type="month" id="monat" min="2025-01" max="2026-12" onchange="monatGeaendert()"></label></div>
   </div>
   <div class="g4">
-    <div class="field"><label><span class="lbl">Steuernummer AG</span><input type="text" id="ag-steuernr" placeholder="12/345/67890"></label></div>
-    <div class="field"><label><span class="lbl">Betriebsnummer</span><input type="text" id="ag-betriebsnr" placeholder="12345678"></label></div>
-    <div class="field"><label><span class="lbl">IBAN AG (Überweisung von)</span><input type="text" id="ag-iban" placeholder="DE12..."></label></div>
+    <div class="field"><label><span class="lbl">Steuernummer AG</span><input type="text" id="ag-steuernr" placeholder="Steuernummer AG"></label></div>
+    <div class="field"><label><span class="lbl">Betriebsnummer</span><input type="text" id="ag-betriebsnr" placeholder="Betriebsnummer"></label></div>
+    <div class="field"><label><span class="lbl">IBAN AG (Überweisung von)</span><input type="text" id="ag-iban" placeholder="IBAN"></label></div>
     <div class="field"><label><span class="lbl">Blatt-Nr.</span><input type="text" id="ag-blatt" value="1"></label></div>
   </div>
 </div>
@@ -164,23 +219,23 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 
   <!-- Zeile 1 -->
   <div class="g4 mb">
-    <div class="field"><label><span class="lbl">Vorname</span><input type="text" id="an-vname" placeholder="Max"></label></div>
-    <div class="field"><label><span class="lbl">Nachname</span><input type="text" id="an-nname" placeholder="Mustermann"></label></div>
+    <div class="field"><label><span class="lbl">Vorname</span><input type="text" id="an-vname" placeholder="Vorname"></label></div>
+    <div class="field"><label><span class="lbl">Nachname</span><input type="text" id="an-nname" placeholder="Nachname"></label></div>
     <div class="field"><label><span class="lbl">Kirchensteuer</span>
       <select id="an-kirche">
         <option value="0">Keine</option>
         <option value="0.09">9 % (BW/Bayern)</option>
         <option value="0.08">8 % (Übrige)</option>
       </select></label></div>
-    <div class="field"><label><span class="lbl">Personal-Nr.</span><input type="text" id="an-persnr" placeholder="00036"></label></div>
+    <div class="field"><label><span class="lbl">Personal-Nr.</span><input type="text" id="an-persnr" placeholder="Personal-Nr."></label></div>
   </div>
 
   <!-- Zeile 2 -->
   <div class="g4 mb">
-    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="an-str" placeholder="Musterweg 1"></label></div>
-    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="an-ort" placeholder="79576 Weil am Rhein"></label></div>
-    <div class="field"><label><span class="lbl">Geburtsdatum</span><input type="text" id="an-geb" placeholder="01.01.1985"></label></div>
-    <div class="field"><label><span class="lbl">Eintritt</span><input type="text" id="an-eintritt" placeholder="01.10.2022"></label></div>
+    <div class="field"><label><span class="lbl">Straße & Hausnummer</span><input type="text" id="an-str" placeholder="Straße & Hausnummer"></label></div>
+    <div class="field"><label><span class="lbl">PLZ & Ort</span><input type="text" id="an-ort" placeholder="PLZ & Ort"></label></div>
+    <div class="field"><label><span class="lbl">Geburtsdatum</span><input type="text" id="an-geb" placeholder="Geburtsdatum"></label></div>
+    <div class="field"><label><span class="lbl">Eintritt</span><input type="text" id="an-eintritt" placeholder="Eintritt"></label></div>
   </div>
 
   <!-- Zeile 3: Steuer -->
@@ -191,14 +246,14 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
         <option value="4">IV</option><option value="5">V</option><option value="6">VI</option>
       </select></label></div>
     <div class="field"><label><span class="lbl">Faktor (StKl IV)</span><input type="text" id="an-faktor" placeholder="—"></label></div>
-    <div class="field"><label><span class="lbl">Steuer-ID</span><input type="text" id="an-steuerid" placeholder="00 000 000 0"></label></div>
+    <div class="field"><label><span class="lbl">Steuer-ID</span><input type="text" id="an-steuerid" placeholder="Steuer-ID"></label></div>
     <div class="field"><label><span class="lbl">Ki.Frbtr. jährl. (€)</span><input type="text" id="an-kifj" placeholder="0,00" oninput="fmtIn(this)"></label></div>
     <div class="field"><label><span class="lbl">Ki.Frbtr. mtl. (€)</span><input type="text" id="an-kifm" placeholder="0,00" oninput="fmtIn(this)"></label></div>
   </div>
 
   <!-- Zeile 4: SV -->
   <div class="g5 mb">
-    <div class="field"><label><span class="lbl">SV-Nummer</span><input type="text" id="an-svnr" placeholder="12 345678 A 001"></label></div>
+    <div class="field"><label><span class="lbl">SV-Nummer</span><input type="text" id="an-svnr" placeholder="SV-Nummer"></label></div>
     <div class="field"><label><span class="lbl">Krankenkasse</span>
       <select id="an-kk" onchange="kkGewaehlt()">
         <optgroup label="── PKV ──">
@@ -318,7 +373,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
     <div class="field"><label><span class="lbl">Krankh. Tage</span><input type="text" id="zt-kt"></label></div>
     <div class="field"><label><span class="lbl">Fehlz. Tage</span><input type="text" id="zt-ft"></label></div>
     <div class="field"><label><span class="lbl">VJ Url. üb.</span><input type="text" id="zt-vju"></label></div>
-    <div class="field"><label><span class="lbl">Url. Anspruch</span><input type="text" id="zt-ua" placeholder="30"></label></div>
+    <div class="field"><label><span class="lbl">Url. Anspruch</span><input type="text" id="zt-ua" placeholder="Url. Anspruch"></label></div>
   </div>
   <div class="g6">
     <div class="field"><label><span class="lbl">Anw. Std.</span><input type="text" id="zt-as"></label></div>
@@ -406,8 +461,8 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 <div class="card no-print">
   <div class="card-title">Bankverbindung Arbeitnehmer</div>
   <div class="g3">
-    <div class="field"><label><span class="lbl">Bank</span><input type="text" id="an-bank" placeholder="Sparkasse Markgräflerland"></label></div>
-    <div class="field"><label><span class="lbl">IBAN</span><input type="text" id="an-iban" placeholder="DE35 6835 1865 0108 81.."></label></div>
+    <div class="field"><label><span class="lbl">Bank</span><input type="text" id="an-bank" placeholder="Bank"></label></div>
+    <div class="field"><label><span class="lbl">IBAN</span><input type="text" id="an-iban" placeholder="IBAN"></label></div>
     <div class="field"><label><span class="lbl">Auszahlungsbetrag (berechnet)</span>
       <input type="text" id="an-ausz" readonly style="background:var(--accent-dim);color:var(--accent);font-weight:500;"></label></div>
   </div>
@@ -429,7 +484,7 @@ input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:po
 
 <p class="disclaimer no-print">Alle Berechnungen sind Näherungswerte auf Basis der jeweils angegebenen Rechtsgrundlagen. Individuelle Faktoren bleiben unberücksichtigt. Kein Ersatz für individuelle Steuer- oder Rechtsberatung · Alle Angaben ohne Gewähr</p>
 </div>
-<footer class="no-print">© Robin Glowania · Zuletzt aktualisiert: 07.05.2026</footer>
+<footer class="no-print">© Robin Glowania · Zuletzt aktualisiert: 18.05.2026</footer>
 
 <script>
 /* ── Theme ──────────────────────────────────────────────────── */
@@ -510,8 +565,9 @@ function addLA(nr,bez,kenn){
 }
 function calcLA(el){
   var row=el.closest('tr'),ins=row.querySelectorAll('input');
-  var m=pDe(ins[3].value),f=pDe(ins[4].value);
-  if(m&&f){ins[5].value=fEur(m*f);}
+  // ins[0]=Nr, ins[1]=Bez, ins[2]=Menge, ins[3]=Faktor, ins[4]=Betrag
+  var m=pDe(ins[2].value),f=pDe(ins[3].value);
+  if(m&&f){ins[4].value=fEur(m*f);}
   updateSums();
 }
 
@@ -543,7 +599,7 @@ function addHW(){
 /* ── Summen ─────────────────────────────────────────────────── */
 function updateSums(){
   var s=0;
-  document.querySelectorAll('#la-body tr').forEach(r=>{var ins=r.querySelectorAll('input');if(ins[5])s+=pDe(ins[5].value);});
+  document.querySelectorAll('#la-body tr').forEach(r=>{var ins=r.querySelectorAll('input');if(ins[4])s+=pDe(ins[4].value);});
   document.getElementById('la-sum').textContent=fEur(s)+' €';
   var c=berechne();
   if(c)document.getElementById('an-ausz').value=fEur(c.netto)+' €';
@@ -563,9 +619,9 @@ function berechne(){
   var las=[],brSt=0,brSV=0,brGes=0,brL=0,brS=0,brP=0,brF=0;
   document.querySelectorAll('#la-body tr').forEach(r=>{
     var ins=r.querySelectorAll('input'),sels=r.querySelectorAll('select');
-    if(!ins[5])return;
+    if(!ins[4])return;
     var nr=ins[0].value,bez=ins[1].value,kenn=sels[0]?sels[0].value:'LL';
-    var m=ins[3].value,f=ins[4].value,bet=pDe(ins[5].value);
+    var m=ins[2].value,f=ins[3].value,bet=pDe(ins[4].value);
     if(!bet&&!bez)return;
     var stK=kenn[0]||'L',svK=kenn[1]||'L';
     var stFrei=stK==='F',pauschal=stK==='P';
@@ -580,10 +636,12 @@ function berechne(){
   // SV
   var sv={kv:0,rv:0,av:0,pv:0,kvAG:0,rvAG:0,avAG:0,pvAG:0};
   var bKV=Math.min(brSV,jw.bbgKV),bRV=Math.min(brSV,jw.bbgRV);
-  if(art!=='mini'){
+  // SV-frei: Minijob; Gesellschafter-GF (beherrschende Stellung, Annahme).
+  // AktivRente: keine RV/AV-Beitragspflicht (§ 3 Nr. 21 EStG)
+  if(art!=='mini'&&art!=='ggf'){
     if(!isPKV){
       var kvzAN=pDe(v('an-kvz'))/100;
-      sv.kv=bKV*(jw.kv+kvzAN/2);sv.kvAG=bKV*(jw.kv+kvzAN/2);
+      sv.kv=bKV*(jw.kv+kvzAN);sv.kvAG=bKV*(jw.kv+kvzAN);
       sv.pv=bKV*(jw.pv+(hatKinder?0:jw.pvK));sv.pvAG=bKV*jw.pv;
     }
     if(art!=='aktivrente'){
@@ -596,17 +654,29 @@ function berechne(){
 
   // Lohnsteuer
   var pkvB=isPKV?pDe(v('an-pkv-b')):0;
+  // Kinderfreibetrag (jährl. oder mtl. ×12) und Faktor (StKl IV)
+  var kifJ=pDe(v('an-kifj'));
+  var kifM=pDe(v('an-kifm'));
+  var kiFrbJ=kifJ>0?kifJ:kifM*12;  // Jahreswert des Kinderfreibetrags
+  var faktor=parseFloat(String(v('an-faktor')).replace(',','.'))||0;
   var zvEm=Math.max(0,brSt-svGes-jw.wk-pkvB),zvEj=zvEm*12;
+  // Bemessungsgrundlage für SolZ/KiSt: zvE − Kinderfreibetrag
+  var zvEjBemess=Math.max(0,zvEj-kiFrbJ);
   var lst=0,solz=0,kist=0;
   if(art!=='mini'){
-    var lsJ;
-    if(sk===3)lsJ=jw.lst(zvEj/2)*2;
-    else if(sk===5)lsJ=Math.max(0,zvEj*0.33);
-    else if(sk===6)lsJ=Math.max(0,zvEj*0.42);
-    else{lsJ=jw.lst(zvEj);if(sk===2)lsJ=Math.max(0,jw.lst(Math.max(0,zvEj-jw.entlII)));}
+    var lsJ,lsJBemess;
+    if(sk===3){lsJ=jw.lst(zvEj/2)*2;lsJBemess=jw.lst(zvEjBemess/2)*2;}
+    else if(sk===5){lsJ=Math.max(0,zvEj*0.33);lsJBemess=Math.max(0,zvEjBemess*0.33);}
+    else if(sk===6){lsJ=Math.max(0,zvEj*0.42);lsJBemess=Math.max(0,zvEjBemess*0.42);}
+    else{
+      lsJ=jw.lst(zvEj);
+      lsJBemess=jw.lst(zvEjBemess);
+      if(sk===2){lsJ=Math.max(0,jw.lst(Math.max(0,zvEj-jw.entlII)));lsJBemess=Math.max(0,jw.lst(Math.max(0,zvEjBemess-jw.entlII)));}
+      if(sk===4&&faktor>0&&faktor<1){lsJ=lsJ*faktor;lsJBemess=lsJBemess*faktor;}
+    }
     lst=lsJ/12;
-    if(lsJ>jw.solzF)solz=Math.min(lsJ*0.055,(lsJ-jw.solzF)*0.119)/12;
-    kist=lst*kirche;
+    if(lsJBemess>jw.solzF)solz=Math.min(lsJBemess*0.055,(lsJBemess-jw.solzF)*0.119)/12;
+    kist=(lsJBemess/12)*kirche;
   }
   var stGes=lst+solz+kist;
 
@@ -614,8 +684,8 @@ function berechne(){
   var naAb=[],naBez=[];var abGes=0,bezGes=0;
   document.querySelectorAll('#na-body tr').forEach(r=>{
     var ins=r.querySelectorAll('input'),sels=r.querySelectorAll('select');
-    if(!ins[3])return;
-    var nr=ins[0].value,bez=ins[1].value,art2=sels[0]?sels[0].value:'abzug',bet=pDe(ins[3].value);
+    if(!ins[2])return;
+    var nr=ins[0].value,bez=ins[1].value,art2=sels[0]?sels[0].value:'abzug',bet=pDe(ins[2].value);
     if(!bet&&!bez)return;
     if(art2==='abzug'){naAb.push({nr,bez,bet});abGes+=bet;}else{naBez.push({nr,bez,bet});bezGes+=bet;}
   });
@@ -663,7 +733,7 @@ function generatePreview(){
     <div style="flex:.5"><span class="kl">St.-Tg.</span></div>
     <div style="flex:.8"><span class="kl">VJ Url.&uuml;b.</span>${esc(v('zt-vju'))}</div>
     <div style="flex:.8"><span class="kl">Url.Anspr.</span>${esc(v('zt-ua'))}</div>
-    <div style="flex:.7" style="border-right:none"><span class="kl">Resturlaub</span></div>
+    <div style="flex:.7;border-right:none"><span class="kl">Resturlaub</span></div>
   </div>
   <div class="dv-kopf-row" style="border-top:1px solid #666;">
     <div style="flex:3"><span class="kl">SV-Nummer &amp; Krankenkasse</span>${esc(v('an-svnr'))} &nbsp; ${esc(kk)}</div>
@@ -884,7 +954,12 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('monat').value=y+'-'+String(now.getMonth()+1).padStart(2,'0');
   kkGewaehlt();
   addLA('001','Gehalt','LL');
-  document.querySelectorAll('#la-body tr input')[5].value='4.000,00';
+  // Letzte Zeile (gerade hinzugefügt) → Betrag-Feld = letztes Input
+  var lastRow=document.querySelector('#la-body tr:last-child');
+  if(lastRow){
+    var inps=lastRow.querySelectorAll('input');
+    inps[inps.length-1].value='4.000,00';
+  }
   updateSums();
   ['an-stklasse','an-kirche','an-art','an-kinder'].forEach(id=>{
     var el=document.getElementById(id);
